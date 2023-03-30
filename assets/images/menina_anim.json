@@ -1,0 +1,52 @@
+{
+    "anims": [
+        {
+            "key": "menina_parado",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "menina",
+                    "frame": "townsfolk_f_idle_1"
+                },
+                {
+                    "key": "menina",
+                    "frame": "townsfolk_f_idle_2"
+                },
+                {
+                    "key": "menina",
+                    "frame": "townsfolk_f_idle_3"
+                },
+                {
+                    "key": "menina",
+                    "frame": "townsfolk_f_idle_4"
+                }
+            ]
+        },
+        {
+            "key": "menina_andar",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "menina",
+                    "frame": "townsfolk_f_walk_1"
+                },
+                {
+                    "key": "menina",
+                    "frame": "townsfolk_f_walk_2"
+                },
+                {
+                    "key": "menina",
+                    "frame": "townsfolk_f_walk_3"
+                },
+                {
+                    "key": "menina",
+                    "frame": "townsfolk_f_walk_4"
+                }
+            ]
+        }
+    ]
+}
