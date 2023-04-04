@@ -35,7 +35,10 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
     update() {
         
         const velocidadeDoJogador = 1.5;
+    
         let jogadorVelocidade = new Phaser.Math.Vector2(); //usar os vetores do phaser para controlar o movimento do jogador
+        
+        //movimentos do jogador
         if(this.inputKeys.esquerda.isDown) {
             jogadorVelocidade.x = -1;
         } else if(this.inputKeys.direita.isDown) {
@@ -47,9 +50,9 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
             jogadorVelocidade.y = 1;
         }
 
-        
         jogadorVelocidade.normalize(); //para não aumentar a velocidade quando motivo na diogonal
         
+        //cheat para aumentar 3x a velocidade do jogador ao apertar "M"
         if(this.inputKeys.velocidade.isDown) {
             jogadorVelocidade.scale(velocidadeDoJogador*3);
         } else {
