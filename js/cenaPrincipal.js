@@ -29,10 +29,17 @@ export default class cenaPrincipal extends Phaser.Scene {
         const tileset = map.addTilesetImage("RPG Nature Tileset", "partes", 32,32,0,0);
         const camada1 = map.createStaticLayer("Camada de Blocos 1", tileset,0,0);
         const camada2 = map.createStaticLayer("Camada de Blocos 2", tileset,0,0);
-        camada1.setCollisionByProperty({colisoes:true});
-        this.matter.world.convertTilemapLayer(camada1);
-        // this.Jogador = new Phaser.Physics.Matter.Sprite(this.matter.world,0,0,'menina', 'townsfolk_f_walk_1');
+        const camada4 = map.createStaticLayer("Camada de Blocos 4", tileset,0,0);
         this.player = new Jogador({scene:this, x:100, y:100, texture:'menina', frame: 'townsfolk_f_walk_1'});
+        const camada3 = map.createStaticLayer("Camada de Blocos 3", tileset,0,0);
+        camada1.setCollisionByProperty({colisoes:true});
+        camada3.setCollisionByProperty({colisoes:true});
+        this.matter.world.convertTilemapLayer(camada1);
+        this.matter.world.convertTilemapLayer(camada2);
+        this.matter.world.convertTilemapLayer(camada3);
+        
+        // this.Jogador = new Phaser.Physics.Matter.Sprite(this.matter.world,0,0,'menina', 'townsfolk_f_walk_1');
+        
         this.player.inputKeys = this.input.keyboard.addKeys({
             cima: Phaser.Input.Keyboard.KeyCodes.W,
             baixo: Phaser.Input.Keyboard.KeyCodes.S,
