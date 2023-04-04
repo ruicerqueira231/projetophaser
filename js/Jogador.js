@@ -1,5 +1,3 @@
-var velocityKeyUp;
-var velocityKeyDown;
 
 export default class Jogador extends Phaser.Physics.Matter.Sprite {
 
@@ -34,8 +32,9 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
         return this.body.velocity;
     }  
 
-    update(velocidade) {    
-        velocidade = 3;
+    update() {
+        
+        const velocidadeDoJogador = 1.5;
         let jogadorVelocidade = new Phaser.Math.Vector2(); //usar os vetores do phaser para controlar o movimento do jogador
         if(this.inputKeys.esquerda.isDown) {
             jogadorVelocidade.x = -1;
@@ -47,8 +46,15 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
         } else if(this.inputKeys.baixo.isDown) {
             jogadorVelocidade.y = 1;
         }
+
+        
         jogadorVelocidade.normalize(); //para não aumentar a velocidade quando motivo na diogonal
-        jogadorVelocidade.scale(velocidade); //multiplicar o vetor pela constante velocidade
+        
+        if(this.inputKeys.velocidade.isDown) {
+            jogadorVelocidade.scale(velocidadeDoJogador*3);
+        } else {
+            jogadorVelocidade.scale(velocidadeDoJogador);
+        }
         this.setVelocity(jogadorVelocidade.x, jogadorVelocidade.y);
         //dependendo das teclas pressionadas a animação altera-se
         if(Math.abs(this.velocity.x)> 0.1 || Math.abs(this.velocity.y)> 0.1) { 
@@ -56,5 +62,7 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
         } else {
             this.anims.play('menina_parado', true);
         }
+
+
     }
 }

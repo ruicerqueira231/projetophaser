@@ -4,8 +4,6 @@ var resetLife;
 var textoVidas;
 var lifeKey;
 var vidas = 3;
-var velocityKeyUp;
-var velocityKeyDown;
 
 export default class cenaPrincipal extends Phaser.Scene {
 
@@ -38,35 +36,23 @@ export default class cenaPrincipal extends Phaser.Scene {
         this.matter.world.convertTilemapLayer(camada2);
         this.matter.world.convertTilemapLayer(camada3);
         
-        // this.Jogador = new Phaser.Physics.Matter.Sprite(this.matter.world,0,0,'menina', 'townsfolk_f_walk_1');
         
         this.player.inputKeys = this.input.keyboard.addKeys({
             cima: Phaser.Input.Keyboard.KeyCodes.W,
             baixo: Phaser.Input.Keyboard.KeyCodes.S,
             esquerda: Phaser.Input.Keyboard.KeyCodes.A,
             direita: Phaser.Input.Keyboard.KeyCodes.D,
-
+            velocidade: Phaser.Input.Keyboard.KeyCodes.M,
         })
 
         lifeKey = this.input.keyboard.addKey('Q');
-        resetLife = this.input.keyboard.addKey('T');
-        velocityKeyUp = this.input.keyboard.addKey('M');
-        velocityKeyDown = this.input.keyboard.addKey('N');
         resetLife = this.input.keyboard.addKey('T');
         textoVidas = this.add.text(16, 16, 'Vidas: ' + vidas, { fontSize: '20px', fill: '#fff' });
         musicGame.play();
     }
 
-    update(velocidade) {
+    update() {
         this.player.update();
-
-        if(velocityKeyUp.isDown){
-            velocidade = 10;
-        }
-
-        if(velocityKeyDown.isDown){
-            velocidade = 3;
-        }
 
         if(lifeKey.isDown){
             vidas = 1000;
