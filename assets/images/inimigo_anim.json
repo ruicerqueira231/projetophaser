@@ -1,0 +1,28 @@
+{
+    "anims": [
+        {
+            "key": "andar",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "inimigo",
+                    "frame": "crabmoving1"
+                },
+                {
+                    "key": "inimigo",
+                    "frame": "crabmoving2"
+                },
+                {
+                    "key": "inimigo",
+                    "frame": "crabmoving3"
+                },
+                {
+                    "key": "inimigo",
+                    "frame": "crabmoving4"
+                }
+            ]
+        }
+    ]
+}
