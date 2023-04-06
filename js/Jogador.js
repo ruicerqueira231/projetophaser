@@ -17,6 +17,8 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
             parts:[jogadorColidir, jogadorSensor],
             frictionAir: 0.35,
         });
+
+        
         
         this.setExistingBody(corpoComposto);//criar corpo
         this.setFixedRotation(); //não rodar o boneco ao colidir com outro
