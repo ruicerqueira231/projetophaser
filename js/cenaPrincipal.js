@@ -5,6 +5,7 @@ var resetLife;
 var textoVidas;
 var lifeKey;
 var vidas = 3;
+var burrito;
 
 export default class cenaPrincipal extends Phaser.Scene {
 
@@ -27,7 +28,7 @@ export default class cenaPrincipal extends Phaser.Scene {
         this.load.tilemapTiledJSON("mapa", "assets/images/mapa.json");
 
         //desenvolvimento
-        this.load.image("comida" , "assets/images/Pac de Comida.png");
+        this.load.image("burrito" , "assets/images/burrito.png");
 
     }
 
@@ -47,6 +48,18 @@ export default class cenaPrincipal extends Phaser.Scene {
         this.inimigo2 = new Inimigo({scene:this, x:200, y:280, texture:'inimigo', frame: 'crabmoving1'});
         this.inimigo3 = new Inimigo({scene:this, x:320, y:250, texture:'inimigo', frame: 'crabmoving1'});
         this.inimigo4 = new Inimigo({scene:this, x:320, y:300, texture:'inimigo', frame: 'crabmoving1'});
+        //variaveis com random positions
+        const randomX = Phaser.Math.Between(200, 400);
+        const randomY = Phaser.Math.Between(200, 400);
+        
+        //Está a dar erro a criar um grupo de burritos, não sei bem porquê
+        /*
+        burrito = this.physics.add.group({
+            key: 'burrito',
+            repeat: 11,
+            setXY: { x: 12, y: 0, stepX: randomX , stepY: randomY }
+        });
+        */
 
         
         const camada4 = map.createStaticLayer("Camada de Blocos 4", tileset,0,0);
@@ -75,6 +88,9 @@ export default class cenaPrincipal extends Phaser.Scene {
         resetLife = this.input.keyboard.addKey('T');
         textoVidas = this.add.text(16, 16, 'Vidas: ' + vidas, { fontSize: '20px', fill: '#fff' });
         
+        //eliminar o corpo do burrito quando o jogador colide com o burrito
+        //this.physics.add.overlap(player,burrito,coletarBurrito,null,this);
+        
     }
 
     update() {
@@ -95,5 +111,11 @@ export default class cenaPrincipal extends Phaser.Scene {
             textoVidas.setText("Vidas: "+ vidas);
         }
         
+        //function coletarBurrito(player , burrito){
+            
+          //  burrito.disableBody(true,true);
+          //vidas = vidas + 1;
+          //healthUpdate(vidas);
+        //}
     }
 }
