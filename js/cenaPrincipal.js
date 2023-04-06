@@ -113,7 +113,7 @@ export default class cenaPrincipal extends Phaser.Scene {
         
         //function coletarBurrito(player , burrito){
             
-          //  burrito.disableBody(true,true);
+          //burrito.disableBody(true,true);
           //vidas = vidas + 1;
           //healthUpdate(vidas);
         //}
