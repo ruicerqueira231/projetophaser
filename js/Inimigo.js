@@ -16,7 +16,7 @@ export default class Inimigo extends Phaser.Physics.Matter.Sprite {
             parts:[jogadorColidir, jogadorSensor],
             frictionAir: 0.7,
         });
-        jogadorColidir
+        //jogadorColidir
 
         this.setExistingBody(corpoComposto);//criar corpo
         this.setFixedRotation(); //não rodar o boneco ao colidir com outro

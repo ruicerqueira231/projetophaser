@@ -6,11 +6,12 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
         super(scene.matter.world,x,y,texture,frame);
         this.scene.add.existing(this);
         this.spriteEspada = new Phaser.GameObjects.Sprite(this.scene , 0,0,'espada', 82);
+        //diminui o tamanho da espada
         this.spriteEspada.setScale(0.7);
         this.spriteEspada.setOrigin(0.25,0.75);
         //Para ficar visivel na scene do jogo
         this.scene.add.existing(this.spriteEspada);
-
+        this.spriteEspada.visible = true;
         //buscar o Body e Bodies ao Matter
         const {Body, Bodies} = Phaser.Physics.Matter.Matter;
         //definir uma divisão circular de colisão e um sensor circular para usos futuros
@@ -26,6 +27,8 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
         
         this.setExistingBody(corpoComposto);//criar corpo
         this.setFixedRotation(); //não rodar o boneco ao colidir com outro
+
+        this.scene.input.on('pointermove', pointer => this.setFlipX(pointer.worldX < this.x));
     }
 
     static preload(scene) {
@@ -74,6 +77,26 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
         }
         //fixar a posição da espada com o jogador
         this.spriteEspada.setPosition(this.x,this.y);
+        //erro ao chamar este metodo rotateEspada() - Espada deixa de aparecer na scene
+        this.rotateEspada();
+    }
+     rotateEspada(){
+        let clique = this.scene.input.activePointer;
+        if(clique.isDown){
+            this.rotacaoEspada += 6;
+        
+        } else {
+            this.rotacaoEspada = 0;
+        }
+         if(this.rotacaoEspada > 60){
+             this.rotacaoEspada = 0;
+         }
+        this.spriteEspada.setAngle(this.rotacaoEspada);
 
+        if(this.flipX){
+            this.spriteEspada.setAngle(-this.rotacaoEspada - 90);
+        }else{
+            this.spriteEspada.setAngle(this.rotacaoEspada);
+        }
     }
 }

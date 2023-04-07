@@ -53,13 +53,13 @@ export default class cenaPrincipal extends Phaser.Scene {
         const randomY = Phaser.Math.Between(200, 400);
         
         //Está a dar erro a criar um grupo de burritos, não sei bem porquê
-        /*
-        burrito = this.physics.add.group({
-            key: 'burrito',
-            repeat: 11,
-            setXY: { x: 12, y: 0, stepX: randomX , stepY: randomY }
-        });
-        */
+    
+
+
+        debugger
+        
+        burrito = new Phaser.GameObjects.Group()
+        
 
         
         const camada4 = map.createStaticLayer("Camada de Blocos 4", tileset,0,0);
