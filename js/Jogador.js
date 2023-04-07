@@ -6,6 +6,7 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
         super(scene.matter.world,x,y,texture,frame);
         this.scene.add.existing(this);
         this.spriteEspada = new Phaser.GameObjects.Sprite(this.scene , 0,0,'espada', 82);
+        this.audioSteps = this.scene.sound.add('audioSteps');
         //diminui o tamanho da espada
         this.spriteEspada.setScale(0.7);
         this.spriteEspada.setOrigin(0.25,0.75);
@@ -35,6 +36,7 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
         scene.load.atlas('menina', 'assets/images/menina.png', 'assets/images/menina_atlas.json');
         scene.load.animation('menina_anim', 'assets/images/menina_anim.json');
         scene.load.spritesheet('espada' , 'assets/images/utensilios.png', {frameWidth:32,frameHeight:32});
+        scene.load.audio('audioSteps', 'assets/audios/audioSteps.ogg');
     }
 
     //propriedade de velocidade existe no corpo "body" de um matter sprite
@@ -59,21 +61,26 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
         } else if(this.inputKeys.baixo.isDown) {
             jogadorVelocidade.y = 1;
         }
-
         jogadorVelocidade.normalize(); //para não aumentar a velocidade quando motivo na diogonal
         
         //cheat para aumentar 3x a velocidade do jogador ao apertar "M"
         if(this.inputKeys.velocidade.isDown) {
+            this.audioSteps.setRate(2.0);
             jogadorVelocidade.scale(velocidadeDoJogador*3);
         } else {
+            this.audioSteps.setRate(1.0);
             jogadorVelocidade.scale(velocidadeDoJogador);
         }
         this.setVelocity(jogadorVelocidade.x, jogadorVelocidade.y);
         //dependendo das teclas pressionadas a animação altera-se
         if(Math.abs(this.velocity.x)> 0.1 || Math.abs(this.velocity.y)> 0.1) { 
             this.anims.play(('menina_andar'), true);
+            if (!this.audioSteps.isPlaying) {
+                this.audioSteps.play();
+            }
         } else {
             this.anims.play('menina_parado', true);
+            this.audioSteps.stop();
         }
         //fixar a posição da espada com o jogador
         this.spriteEspada.setPosition(this.x,this.y);
@@ -84,7 +91,6 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
         let clique = this.scene.input.activePointer;
         if(clique.isDown){
             this.rotacaoEspada += 6;
-        
         } else {
             this.rotacaoEspada = 0;
         }

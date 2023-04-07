@@ -1,11 +1,11 @@
 import Jogador from "./Jogador.js";
 import Inimigo from "./Inimigo.js";
+import cenaFinal from "./cenaFinal.js";
 
 var resetLife;
 var textoVidas;
 var lifeKey;
 var vidas = 3;
-var burrito;
 
 export default class cenaPrincipal extends Phaser.Scene {
 
@@ -29,12 +29,13 @@ export default class cenaPrincipal extends Phaser.Scene {
 
         //desenvolvimento
         this.load.image("burrito" , "assets/images/burrito.png");
+        this.load.image("botao" , "assets/images/button.png");
 
     }
 
     create() {
         // musica
-        //this.sound.add('gameBackground').play();
+        this.sound.add('gameBackground').play();
 
         //camadas do mapa/jogadores e respetivas propriedades 
         const map = this.make.tilemap({key: "mapa"});
@@ -48,21 +49,13 @@ export default class cenaPrincipal extends Phaser.Scene {
         this.inimigo2 = new Inimigo({scene:this, x:200, y:280, texture:'inimigo', frame: 'crabmoving1'});
         this.inimigo3 = new Inimigo({scene:this, x:320, y:250, texture:'inimigo', frame: 'crabmoving1'});
         this.inimigo4 = new Inimigo({scene:this, x:320, y:300, texture:'inimigo', frame: 'crabmoving1'});
-        //variaveis com random positions
-        const randomX = Phaser.Math.Between(200, 400);
-        const randomY = Phaser.Math.Between(200, 400);
-        
-        //Está a dar erro a criar um grupo de burritos, não sei bem porquê
-    
-
-
-        debugger
-        
-        burrito = new Phaser.GameObjects.Group()
-        
-
-        
+          
         const camada4 = map.createStaticLayer("Camada de Blocos 4", tileset,0,0);
+
+        //teste - botão para trocar de cena
+        let button = this.add.sprite(200,200,"botao");
+        button.setInteractive();
+        button.on('pointerdown', this.nextScene.bind(this));
 
         //colisões dos tiletmapslayers
         camada1.setCollisionByProperty({colisoes:true}); //colisões das aguas por voltar
@@ -88,9 +81,10 @@ export default class cenaPrincipal extends Phaser.Scene {
         resetLife = this.input.keyboard.addKey('T');
         textoVidas = this.add.text(16, 16, 'Vidas: ' + vidas, { fontSize: '20px', fill: '#fff' });
         
-        //eliminar o corpo do burrito quando o jogador colide com o burrito
-        //this.physics.add.overlap(player,burrito,coletarBurrito,null,this);
-        
+    }
+    //função que inicia a cena Final
+    nextScene(){
+           this.scene.start("cenaFinal");
     }
 
     update() {

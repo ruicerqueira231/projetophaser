@@ -14,7 +14,16 @@ export default class cenaFinal extends Phaser.Scene {
         this.load.tilemapTiledJSON("mapa", "assets/images/mapa_2.json");
     }
 
-    create() {}
+    create() {
+        const map = this.make.tilemap({key: "mapa"});
+        const tileset = map.addTilesetImage("RPG Nature Tileset", "partes", 32,32,0,0);
+        const camada1 = map.createStaticLayer("Camada de Blocos 1", tileset,0,0);
+        const camada2 = map.createStaticLayer("Camada de Blocos 2", tileset,0,0);
+        const camada3 = map.createStaticLayer("Camada de Blocos 3", tileset,0,0);
+        const camada5 = map.createStaticLayer("Camada de Blocos 5", tileset,0,0);
+    }
 
-    update() {}
+    update() {
+
+    }
 }
