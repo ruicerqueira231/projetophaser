@@ -5,7 +5,11 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
         let {scene,x,y,texture,frame} = dados;
         super(scene.matter.world,x,y,texture,frame);
         this.scene.add.existing(this);
-
+        this.spriteEspada = new Phaser.GameObjects.Sprite(this.scene , 0,0,'espada', 82);
+        this.spriteEspada.setScale(0.7);
+        this.spriteEspada.setOrigin(0.25,0.75);
+        //Para ficar visivel na scene do jogo
+        this.scene.add.existing(this.spriteEspada);
 
         //buscar o Body e Bodies ao Matter
         const {Body, Bodies} = Phaser.Physics.Matter.Matter;
@@ -27,6 +31,7 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
     static preload(scene) {
         scene.load.atlas('menina', 'assets/images/menina.png', 'assets/images/menina_atlas.json');
         scene.load.animation('menina_anim', 'assets/images/menina_anim.json');
+        scene.load.spritesheet('espada' , 'assets/images/utensilios.png', {frameWidth:32,frameHeight:32});
     }
 
     //propriedade de velocidade existe no corpo "body" de um matter sprite
@@ -67,7 +72,8 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
         } else {
             this.anims.play('menina_parado', true);
         }
-
+        //fixar a posição da espada com o jogador
+        this.spriteEspada.setPosition(this.x,this.y);
 
     }
 }

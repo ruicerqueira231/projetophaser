@@ -34,7 +34,7 @@ export default class cenaPrincipal extends Phaser.Scene {
 
     create() {
         // musica
-        this.sound.add('gameBackground').play();
+        //this.sound.add('gameBackground').play();
 
         //camadas do mapa/jogadores e respetivas propriedades 
         const map = this.make.tilemap({key: "mapa"});
