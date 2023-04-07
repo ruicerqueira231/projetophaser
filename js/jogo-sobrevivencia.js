@@ -1,3 +1,4 @@
+import cenaFinal from "./cenaFinal.js";
 import cenaPrincipal from "./cenaPrincipal.js";
 
 const config = {
@@ -6,7 +7,7 @@ const config = {
     backgroundColor: '#999999',
     type: Phaser.AUTO,
     parent: 'jogo-sobrevivencia',
-    scene:[cenaPrincipal],
+    scene:[cenaPrincipal, cenaFinal],
     scale: {
         zoom: 2,
 
