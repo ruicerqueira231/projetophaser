@@ -7,6 +7,7 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
         this.scene.add.existing(this);
         this.spriteEspada = new Phaser.GameObjects.Sprite(this.scene , 0,0,'espada', 82);
         this.audioSteps = this.scene.sound.add('audioSteps');
+        this.audioSword = this.scene.sound.add('swordSound');
         //diminui o tamanho da espada
         this.spriteEspada.setScale(0.7);
         this.spriteEspada.setOrigin(0.25,0.75);
@@ -37,6 +38,7 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
         scene.load.animation('menina_anim', 'assets/images/menina_anim.json');
         scene.load.spritesheet('espada' , 'assets/images/utensilios.png', {frameWidth:32,frameHeight:32});
         scene.load.audio('audioSteps', 'assets/audios/audioSteps.ogg');
+        scene.load.audio('swordSound', 'assets/audios/swordSound.ogg');
     }
 
     //propriedade de velocidade existe no corpo "body" de um matter sprite
@@ -91,6 +93,9 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
         let clique = this.scene.input.activePointer;
         if(clique.isDown){
             this.rotacaoEspada += 6;
+            if (!this.audioSword.isPlaying) {
+                this.audioSword.play();
+            }
         } else {
             this.rotacaoEspada = 0;
         }

@@ -34,7 +34,7 @@ export default class Inimigo extends Phaser.Physics.Matter.Sprite {
     } 
 
     update(jogador) {
-
+        this.health = 40;
         let inimigoVelocidade = new Phaser.Math.Vector2();
 
         if(Math.abs(this.velocity.x)> 0.1 || Math.abs(this.velocity.y)> 0.1) { 
@@ -70,11 +70,39 @@ export default class Inimigo extends Phaser.Physics.Matter.Sprite {
         //     inimigoVelocidade.x = 1;
         //     inimigoVelocidade.y = -1;
         // }
-
+        /*
+        if(this.checkCollision(jogador , this.body)){
+            this.health -= 10;
+            
+            if(this.health <= 0){
+                this.disableBody(true, true);
+            }  
+        }
+*/
+/*
+        if (this.checkSensorCollision(this.body.parts[1], jogador.body.parts[1])) {
+        // The two sensors are colliding
+        console.log('Collision detected!');
+    }
+*/
         inimigoVelocidade.normalize();
         this.setVelocity(inimigoVelocidade.x, inimigoVelocidade.y);
     
     }
 
-
+    /*
+    checkSensorCollision(sensor1, sensor2) {
+        // Check if the two sensors are overlapping
+        if (sensor1.x < sensor2.x + sensor2.width &&
+            sensor1.x + sensor1.width > sensor2.x &&
+            sensor1.y < sensor2.y + sensor2.height &&
+            sensor1.y + sensor1.height > sensor2.y) {
+          // The two sensors are colliding
+          return true;
+        } else {
+          // The two sensors are not colliding
+          return false;
+        }
+      }
+*/
 }
