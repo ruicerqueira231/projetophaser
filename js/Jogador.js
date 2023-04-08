@@ -26,7 +26,6 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
         });
 
         
-        
         this.setExistingBody(corpoComposto);//criar corpo
         this.setFixedRotation(); //não rodar o boneco ao colidir com outro
 
@@ -110,4 +109,5 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
             this.spriteEspada.setAngle(this.rotacaoEspada);
         }
     }
+
 }

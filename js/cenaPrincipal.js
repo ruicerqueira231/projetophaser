@@ -10,7 +10,7 @@ var vidas = 3;
 export default class cenaPrincipal extends Phaser.Scene {
 
     constructor() {
-        super("cenaPrincipal");
+        super({ key: 'CenaPrincipal' });
     }
 
     preload() {
@@ -47,9 +47,6 @@ export default class cenaPrincipal extends Phaser.Scene {
         const camada5 = map.createStaticLayer("Camada de Blocos 5", tileset,0,0);
         this.player = new Jogador({scene:this, x:100, y:100, texture:'menina', frame: 'townsfolk_f_walk_1'});
         this.inimigo = new Inimigo({scene:this, x:300, y:300, texture:'inimigo', frame: 'crabmoving1'});
-        this.inimigo2 = new Inimigo({scene:this, x:200, y:280, texture:'inimigo', frame: 'crabmoving1'});
-        this.inimigo3 = new Inimigo({scene:this, x:320, y:250, texture:'inimigo', frame: 'crabmoving1'});
-        this.inimigo4 = new Inimigo({scene:this, x:320, y:300, texture:'inimigo', frame: 'crabmoving1'});
           
         const camada4 = map.createStaticLayer("Camada de Blocos 4", tileset,0,0);
 
@@ -78,11 +75,40 @@ export default class cenaPrincipal extends Phaser.Scene {
         })
 
         //cheats
+
         lifeKey = this.input.keyboard.addKey('Q');
         resetLife = this.input.keyboard.addKey('T');
         textoVidas = this.add.text(16, 16, 'Vidas: ' + vidas, { fontSize: '20px', fill: '#fff' });
         
-    }
+        let collided = false;
+        let collisionTime = 0;
+
+        this.matter.world.on("collisionstart", (event, bodyA, bodyB) => {
+            if((bodyA.label == "jogadorSensor" && bodyB.label == "inimigoColidir") || (bodyB.label == "inimigoColidir" && bodyA.label == "jogadorSensor")) {
+                
+                // set the collided flag to true and record the collision start time
+                if (!collided) {
+                    collided = true;
+                    collisionTime = this.time.now;
+                }
+                
+                // check if the collision has lasted for more than x seconds
+                if (collided && ((this.time.now - collisionTime) > 2000)) {
+                    // increment the variable here
+                    alert("Colisão 2 seg");
+                }
+
+            } else {
+                // reset the variables if the bodies are no longer colliding
+                collided = false;
+                collisionTime = 0;
+                
+            }
+        });
+
+}
+    
+
     //função que inicia a cena Final
     nextScene(){
            this.scene.start("cenaFinal");
@@ -91,10 +117,6 @@ export default class cenaPrincipal extends Phaser.Scene {
     update() {
         this.player.update(); //updates do jogador
         this.inimigo.update(this.player);
-        this.inimigo2.update(this.player);
-        this.inimigo3.update(this.player);
-        this.inimigo4.update(this.player);
-
 
         //update cheats
         if(lifeKey.isDown){

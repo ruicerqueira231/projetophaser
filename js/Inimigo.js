@@ -9,8 +9,8 @@ export default class Inimigo extends Phaser.Physics.Matter.Sprite {
         //buscar o Body e Bodies ao Matter
         const {Body, Bodies} = Phaser.Physics.Matter.Matter;
         //definir uma divisão circular de colisão e um sensor circular para usos futuros
-        var jogadorColidir = Bodies.circle(this.x, this.y, 12, {isSensor:false, label:"jogadorColidir"});
-        var jogadorSensor = Bodies.circle(this.x, this.y, 24, {isSensor:true, label:"jogadorSensor"});
+        var jogadorColidir = Bodies.circle(this.x, this.y, 12, {isSensor:false, label:"inimigoColidir"});
+        var jogadorSensor = Bodies.circle(this.x, this.y, 24, {isSensor:true, label:"inimigoSensor"});
         //associar sensor e culisão a um so corpo e definir propriedades
         const corpoComposto = Body.create({
             parts:[jogadorColidir, jogadorSensor],

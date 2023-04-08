@@ -5,7 +5,7 @@ import Inimigo from "./Inimigo.js";
 export default class cenaFinal extends Phaser.Scene {
 
     constructor() {
-        super("cenaFinal");
+        super({ key: 'CenaFinal' });
     }
 
     preload() {
@@ -17,10 +17,8 @@ export default class cenaFinal extends Phaser.Scene {
     create() {
         const map = this.make.tilemap({key: "mapa2"});
         this.map = map;
-        const tileset = map.addTilesetImage("RPG Nature Tileset_2", "partes2", 32,32,0,0);
-        const camada1 = map.createStaticLayer("Camada de Blocos 7", tileset,0,0);
-        const camada2 = map.createStaticLayer("Camada de Blocos 8", tileset,0,0);
-        const camada3 = map.createStaticLayer("Camada de Blocos 9", tileset,0,0);
+        const tileset2 = map.addTilesetImage("RPG Nature Tileset_2", "partes2", 32,32,0,0);
+        
     }
 
     update() {
