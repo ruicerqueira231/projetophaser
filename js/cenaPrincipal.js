@@ -39,10 +39,11 @@ export default class cenaPrincipal extends Phaser.Scene {
 
         //camadas do mapa/jogadores e respetivas propriedades 
         const map = this.make.tilemap({key: "mapa"});
+        this.map = map;
         const tileset = map.addTilesetImage("RPG Nature Tileset", "partes", 32,32,0,0);
         const camada1 = map.createStaticLayer("Camada de Blocos 1", tileset,0,0);
-        const camada2 = map.createStaticLayer("Camada de Blocos 2", tileset,0,0);
-        const camada3 = map.createStaticLayer("Camada de Blocos 3", tileset,0,0);
+        map.createStaticLayer("Camada de Blocos 2", tileset,0,0);
+        map.createStaticLayer("Camada de Blocos 3", tileset,0,0);
         const camada5 = map.createStaticLayer("Camada de Blocos 5", tileset,0,0);
         this.player = new Jogador({scene:this, x:100, y:100, texture:'menina', frame: 'townsfolk_f_walk_1'});
         this.inimigo = new Inimigo({scene:this, x:300, y:300, texture:'inimigo', frame: 'crabmoving1'});
