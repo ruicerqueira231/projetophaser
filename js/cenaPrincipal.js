@@ -79,6 +79,8 @@ export default class cenaPrincipal extends Phaser.Scene {
 
         lifeKey = this.input.keyboard.addKey('Q');
         resetLife = this.input.keyboard.addKey('T');
+
+        //texto vidas
         textoVidas = this.add.text(16, 16, 'Vidas: ' + vidas, { fontSize: '20px', fill: '#fff' });
 
 
@@ -87,6 +89,9 @@ export default class cenaPrincipal extends Phaser.Scene {
         let collisionStartTime = 0;
         let collisionDuration = 0;
         const decrementInterval = 1000; //intervalo para tirar dano
+
+        //declarar variavel para clique no rato
+        var clique = this.input.activePointer;
 
         this.matter.world.on("collisionstart", (event, bodyA, bodyB) => {
         if ((bodyA.label == "jogadorColidir" && bodyB.label == "inimigoColidir") || 
@@ -107,6 +112,10 @@ export default class cenaPrincipal extends Phaser.Scene {
                 collisionDuration = 0;
                 vidas--;
             }
+            if(clique.isDown){
+                this.matter.world.remove(this.inimigo);
+                this.inimigo.visible=false;
+            }
         }
         });
 
@@ -125,7 +134,7 @@ export default class cenaPrincipal extends Phaser.Scene {
 
         if(gameOver){
             this.matter.pause(); // pause the game physics
-            this.add.text(256, 256, 'Game Over!!', { fontSize: '20px', fill: '#fff' });
+            this.add.text(180, 256, 'Game Over!!', { fontSize: '20px', fill: '#fff' });
             return;
         }
 
