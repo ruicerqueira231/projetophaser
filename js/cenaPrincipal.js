@@ -6,6 +6,7 @@ var resetLife;
 var textoVidas;
 var lifeKey;
 var vidas = 10;
+var gameOver = false;
 
 export default class cenaPrincipal extends Phaser.Scene {
 
@@ -122,20 +123,25 @@ export default class cenaPrincipal extends Phaser.Scene {
         this.player.update(); //updates do jogador
         this.inimigo.update(this.player);
 
+        if(gameOver){
+            this.matter.pause(); // pause the game physics
+            this.add.text(256, 256, 'Game Over!!', { fontSize: '20px', fill: '#fff' });
+            return;
+        }
+
         //update cheats
         if(lifeKey.isDown){
             vidas = 1000;
         }
         if(resetLife.isDown){
-            vidas = 3;
+            vidas = 10;
+        }
+
+        if(vidas === 0){
+            gameOver=true;
         }
         
         textoVidas.setText("Vidas: "+ vidas);
-        //function coletarBurrito(player , burrito){
-            
-          //burrito.disableBody(true,true);
-          //vidas = vidas + 1;
-          //healthUpdate(vidas);
-        //}
+        
     }
 }
