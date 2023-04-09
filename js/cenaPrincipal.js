@@ -5,7 +5,7 @@ import cenaFinal from "./cenaFinal.js";
 var resetLife;
 var textoVidas;
 var lifeKey;
-var vidas = 3;
+var vidas = 10;
 
 export default class cenaPrincipal extends Phaser.Scene {
 
@@ -79,33 +79,37 @@ export default class cenaPrincipal extends Phaser.Scene {
         lifeKey = this.input.keyboard.addKey('Q');
         resetLife = this.input.keyboard.addKey('T');
         textoVidas = this.add.text(16, 16, 'Vidas: ' + vidas, { fontSize: '20px', fill: '#fff' });
-        
-        let collided = false;
-        let collisionTime = 0;
+
+
+        //código para tirar vidas ao haver colisão entre os inimigos
+
+        let collisionStartTime = 0;
+        let collisionDuration = 0;
+        const decrementInterval = 1000; //intervalo para tirar dano
 
         this.matter.world.on("collisionstart", (event, bodyA, bodyB) => {
-            if((bodyA.label == "jogadorSensor" && bodyB.label == "inimigoColidir") || (bodyB.label == "inimigoColidir" && bodyA.label == "jogadorSensor")) {
-                
-                // set the collided flag to true and record the collision start time
-                if (!collided) {
-                    collided = true;
-                    collisionTime = this.time.now;
-                }
-                
-                // check if the collision has lasted for more than x seconds
-                if (collided && ((this.time.now - collisionTime) > 2000)) {
-                    // increment the variable here
-                    alert("Colisão 2 seg");
-                }
-
-            } else {
-                // reset the variables if the bodies are no longer colliding
-                collided = false;
-                collisionTime = 0;
-                
-            }
+        if ((bodyA.label == "jogadorColidir" && bodyB.label == "inimigoColidir") || 
+            (bodyB.label == "inimigoColidir" && bodyA.label == "jogadorColidir")) {
+            collisionStartTime = this.time.now;
+            collisionDuration = 0;
+        }
         });
 
+        this.matter.world.on("collisionactive", (event, bodyA, bodyB) => {
+        if ((bodyA.label == "jogadorColidir" && bodyB.label == "inimigoColidir") || 
+            (bodyB.label == "inimigoColidir" && bodyA.label == "jogadorColidir")) {
+            const currentTime = this.time.now;
+            const deltaTime = currentTime - collisionStartTime;
+            collisionStartTime = currentTime;
+            collisionDuration += deltaTime;
+            if (collisionDuration >= decrementInterval) {
+                collisionDuration = 0;
+                vidas--;
+            }
+        }
+        });
+
+        
 }
     
 
@@ -121,13 +125,12 @@ export default class cenaPrincipal extends Phaser.Scene {
         //update cheats
         if(lifeKey.isDown){
             vidas = 1000;
-            textoVidas.setText("Vidas: "+vidas);
         }
         if(resetLife.isDown){
             vidas = 3;
-            textoVidas.setText("Vidas: "+ vidas);
         }
         
+        textoVidas.setText("Vidas: "+ vidas);
         //function coletarBurrito(player , burrito){
             
           //burrito.disableBody(true,true);
