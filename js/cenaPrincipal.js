@@ -16,6 +16,7 @@ export default class cenaPrincipal extends Phaser.Scene {
     preload() {
         //precarregar musica
         this.load.audio('gameBackground' , ['assets/audios/gameBackground.ogg']);
+        this.load.audio('gameOver', ['assets/audios/gameOver.mp3']);
 
         //precarregar imagens do jogador
         Jogador.preload(this);
@@ -120,14 +121,12 @@ export default class cenaPrincipal extends Phaser.Scene {
             }
           }
         });
-        
-
 }
     
 
     //função que inicia a cena Final
     nextScene(){
-           this.scene.start("cenaFinal");
+           this.scene.start("CenaFinal");
     }
 
     update() {
