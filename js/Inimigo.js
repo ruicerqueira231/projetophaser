@@ -2,23 +2,22 @@
 export default class Inimigo extends Phaser.Physics.Matter.Sprite {
 
     constructor(dados) {
-        let {scene,x,y,texture,frame,scale} = dados;
+        let {scene,x,y,texture,frame,scale,vida} = dados;
         super(scene.matter.world,x,y,texture,frame);
         this.scene.add.existing(this);
-        this.vida = 1;
-        this.aux = 0;
+        this.vida = vida; //vida do inimigo
         
         //buscar o Body e Bodies ao Matter
         const {Body, Bodies} = Phaser.Physics.Matter.Matter;
         //definir uma divisão circular de colisão e um sensor circular para usos futuros
         var jogadorColidir = Bodies.circle(this.x, this.y, 8, {isSensor:false, label:"inimigoColidir"});
-        var jogadorSensor = Bodies.circle(this.x, this.y, 24, {isSensor:true, label:"inimigoSensor"});
+        var jogadorSensor = Bodies.circle(this.x, this.y, 40, {isSensor:true, label:"inimigoSensor"});
         //associar sensor e culisão a um so corpo e definir propriedades
         const corpoComposto = Body.create({
             parts:[jogadorColidir, jogadorSensor],
             frictionAir: 0.4,
         });
-        this.setScale(scale);
+        this.setScale(scale);// tamanho do inimigo
         this.setExistingBody(corpoComposto);//criar corpo
         this.setFixedRotation(); //não rodar o boneco ao colidir com outro
         
@@ -45,9 +44,9 @@ export default class Inimigo extends Phaser.Physics.Matter.Sprite {
     
     update(jogador) {
 
-        if(this.vida <= 800 && this.aux == 0) {
+        if(this.vida <= 800) {
 
-        } else if (this.vida <= 600){
+        }else if (this.vida <= 600){
 
         }else if (this.vida <= 400){
 

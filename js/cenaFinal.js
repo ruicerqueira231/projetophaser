@@ -3,7 +3,8 @@ import Jogador from "./Jogador.js";
 import Inimigo from "./Inimigo.js";
 
 var resetLife;
-var textoVidas;
+var playerVidas;
+var inimigoVidas;
 var lifeKey;
 var gameOver = false;
 
@@ -13,6 +14,10 @@ export default class CenaFinal extends Phaser.Scene {
         super({ key: 'CenaFinal' });
     }
 
+    init(data) {
+       this.vidaJogador = data.vida;
+    }
+  
     preload() {
         //precarregar musica
         this.load.audio('gameBackground' , ['assets/audios/gameBackground.ogg']);
@@ -45,8 +50,9 @@ export default class CenaFinal extends Phaser.Scene {
         const camada1 = map.createStaticLayer("Camada de Blocos 1", tileset2,0,0);
         const camada2 = map.createStaticLayer("Camada de Blocos 2", tileset2,0,0);
         const camada4 = map.createStaticLayer("Camada de Blocos 4", tileset2,0,0);
-        this.player = new Jogador({scene:this, x:100, y:100, texture:'menina', frame: 'townsfolk_f_walk_1'});
-        this.inimigo = new Inimigo({scene:this, x:300, y:300, texture:'inimigo', frame: 'crabmoving1'});
+        //new Jogador({scene:this, x:100, y:100, texture:'menina', frame: 'townsfolk_f_walk_1'});
+        this.player = new Jogador({scene:this, x:100, y:100, texture:'menina', frame: 'townsfolk_f_walk_1', vida: this.vidaJogador});
+        this.inimigo = new Inimigo({scene:this, x:300, y:300, texture:'inimigo', frame: 'crabmoving1', scale: 3, vida: 2000});
         const camada3 = map.createStaticLayer("Camada de Blocos 3", tileset2,0,0);
 
         //colisões dos tiletmapslayers
@@ -80,29 +86,27 @@ export default class CenaFinal extends Phaser.Scene {
         resetLife = this.input.keyboard.addKey('T');
 
         //texto vidas
-        textoVidas = this.add.text(16, 16, 'Vidas: ' + this.player.vida, { fontSize: '20px', fill: '#fff' });
-
-        //declarar variavel para clique no rato
-        var clique = this.input.activePointer;
+        playerVidas = this.add.text(16, 16, 'Vidas: ' + this.player.vida, { fontSize: '20px', fill: '#fff' });
+        inimigoVidas = this.add.text(350, 16, 'Inimigo: ' + this.inimigo.vida, { fontSize: '20px', fill: '#fff' });
 
         //código para tirar vidas ao haver colisão entre os inimigos
 
         let collisionStartTime = 0;
         let collisionDuration = 0;
-        const decrementInterval = 1000; //intervalo para tirar dano jogador
-        const decrementInterval2 = 300; //intervalo para tirar dano inimigo
+        const decrementInterval = 500; //intervalo para tirar dano jogador
+        const decrementInterval2 = 100; //intervalo para tirar dano inimigo
         
         this.matter.world.on("collisionstart", (event, bodyA, bodyB) => {
-          if ((bodyA.label == "jogadorColidir" && bodyB.label == "inimigoColidir") || 
-              (bodyB.label == "inimigoColidir" && bodyA.label == "jogadorColidir")) {
+          if ((bodyA.label == "jogadorColidir" && bodyB.label == "inimigoSensor") || 
+              (bodyB.label == "inimigoSensor" && bodyA.label == "jogadorColidir")) {
             collisionStartTime = this.time.now;
             collisionDuration = 0;
           }
         });
         
         this.matter.world.on("collisionactive", (event, bodyA, bodyB) => {
-          if ((bodyA.label == "jogadorColidir" && bodyB.label == "inimigoColidir") || 
-              (bodyB.label == "inimigoColidir" && bodyA.label == "jogadorColidir")) {
+          if ((bodyA.label == "jogadorColidir" && bodyB.label == "inimigoSensor") || 
+              (bodyB.label == "inimigoSensor" && bodyA.label == "jogadorColidir")) {
             const currentTime = this.time.now;
             const deltaTime = currentTime - collisionStartTime;
             collisionStartTime = currentTime;
@@ -111,7 +115,8 @@ export default class CenaFinal extends Phaser.Scene {
               this.player.vida -= 1;
               this.player.danoSofrido();
               collisionDuration = 0;
-            } else if (collisionDuration >= decrementInterval2 && this.input.activePointer.isDown) {
+            } else if (collisionDuration >= decrementInterval2 && this.input.activePointer.leftButtonDown() && 
+                      this.input.activePointer.getDuration() > 300 && this.input.activePointer.getDuration() < 500)  {
               this.inimigo.vida -= 10;
               this.inimigo.danoSofrido();
               console.log(this.inimigo.vida);
@@ -119,7 +124,8 @@ export default class CenaFinal extends Phaser.Scene {
             }
           }
         });
-    }
+}
+    
 
     //função que inicia a cena Final
     nextScene(){
@@ -151,7 +157,8 @@ export default class CenaFinal extends Phaser.Scene {
             gameOver=true;
         }
         
-        textoVidas.setText("Vidas: "+ this.player.vida);
+        playerVidas.setText("Vidas: "+ this.player.vida);
+        inimigoVidas.setText("Inimigo: "+ this.inimigo.vida);
         
     }
 }

@@ -75,13 +75,13 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
         
         //cheat para aumentar 3x a velocidade do jogador ao apertar "M"
         if(this.inputKeys.velocidade.isDown) {
-            this.audioSteps.setRate(2.0);
+            this.audioSteps.setRate(3.0);
             jogadorVelocidade.scale(velocidadeDoJogador*3);
         } else {
             jogadorVelocidade.scale(velocidadeDoJogador);
         }
         this.setVelocity(jogadorVelocidade.x, jogadorVelocidade.y);
-        //dependendo das teclas pressionadas a animação altera-se
+        //caso hava velocidade na sprite a animação de andar é reproduzida
         if(Math.abs(this.velocity.x)> 0.1 || Math.abs(this.velocity.y)> 0.1) { 
             this.anims.play(('menina_andar'), true);
             if (!this.audioSteps.isPlaying) {
@@ -98,7 +98,9 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
     }
      rotateEspada(){
         
-        if(this.scene.input.activePointer.leftButtonDown()){
+        //apenas deixar que a espada rode com o clique entre 100 e 500 seg
+        if(this.scene.input.activePointer.leftButtonDown() &&
+         this.scene.input.activePointer.getDuration() > 100 && this.scene.input.activePointer.getDuration() < 500){
             this.rotacaoEspada += 20;
             if (!this.audioSword.isPlaying) {
                 this.audioSword.play();
@@ -111,6 +113,7 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
         }
         this.spriteEspada.setAngle(this.rotacaoEspada);
 
+        //espelhar a espada de acordo com o lado do rato no ecra
         if(this.flipX){
             this.spriteEspada.setAngle(-this.rotacaoEspada - 90);
         }else{

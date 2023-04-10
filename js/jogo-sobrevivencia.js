@@ -9,7 +9,7 @@ const config = {
     backgroundColor: '#999999',
     type: Phaser.AUTO,
     parent: 'jogo-sobrevivencia',
-    scene:[CenaMenu , CenaPrincipal, CenaFinal, CenaMenuFinal],
+    scene:[CenaMenu, CenaPrincipal, CenaFinal, CenaMenuFinal],
     scale: {
         zoom: 2,
 
