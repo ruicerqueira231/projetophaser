@@ -88,6 +88,7 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
             this.audioSteps.setRate(3.0);
             jogadorVelocidade.scale(velocidadeDoJogador*3);
         } else {
+            this.audioSteps.setRate(1.0);
             jogadorVelocidade.scale(velocidadeDoJogador);
         }
         this.setVelocity(jogadorVelocidade.x, jogadorVelocidade.y);
