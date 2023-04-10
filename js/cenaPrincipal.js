@@ -51,11 +51,6 @@ export default class CenaPrincipal extends Phaser.Scene {
           
         const camada4 = map.createStaticLayer("Camada de Blocos 4", tileset,0,0);
 
-        //teste - botão para trocar de cena
-        let button = this.add.sprite(200,200,"botao");
-        button.setInteractive();
-        //button.on('pointerdown', );
-
         //colisões dos tiletmapslayers
         camada1.setCollisionByProperty({colisoes:true}); //colisões das aguas por voltar
         camada4.setCollisionByProperty({colisoes:true}); //colisões de obstaculos no mapa

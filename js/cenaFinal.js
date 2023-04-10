@@ -33,10 +33,6 @@ export default class CenaFinal extends Phaser.Scene {
         this.load.image("partes2", "assets/images/RPG Nature Tileset_2.png");
         this.load.tilemapTiledJSON("mapa2", "assets/images/mapa_2.json");
 
-        //desenvolvimento
-        this.load.image("burrito" , "assets/images/burrito.png");
-        this.load.image("botao" , "assets/images/button.png");
-
     }
 
     create() {
