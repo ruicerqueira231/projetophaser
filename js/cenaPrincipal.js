@@ -36,8 +36,8 @@ export default class CenaPrincipal extends Phaser.Scene {
 
     create() {
         // musica
-        this.sound.add('gameBackground').play();
-
+        this.soundEffect = this.sound.add('gameBackground');
+        this.soundEffect.play();
         //camadas do mapa/jogadores e respetivas propriedades 
         const map = this.make.tilemap({key: "mapa"});
         this.map = map;
@@ -116,6 +116,7 @@ export default class CenaPrincipal extends Phaser.Scene {
             if (collisionDuration >= decrementInterval) {
               this.player.vida -= 1;
               this.player.danoSofrido();
+              this.player.playerDamage();
               collisionDuration = 0;
             } else if (collisionDuration >= decrementInterval2 && this.input.activePointer.leftButtonDown() && 
                       this.input.activePointer.getDuration() > 300 && this.input.activePointer.getDuration() < 500)  {
@@ -131,8 +132,10 @@ export default class CenaPrincipal extends Phaser.Scene {
 
     //função que inicia a cena Final
     nextScene(){
+      this.soundEffect.stop();
+      this.player.pauseSteps();
       this.scene.stop();
-      this.scene.start("CenaFinal", {vida: this.player.vida});
+      this.scene.start("CenaFinal");
     }
 
     update() {

@@ -6,6 +6,7 @@ export default class Inimigo extends Phaser.Physics.Matter.Sprite {
         super(scene.matter.world,x,y,texture,frame);
         this.scene.add.existing(this);
         this.vida = vida; //vida do inimigo
+        this.inimigoDamaged = this.scene.sound.add('inimigoDamaged');
         
         //buscar o Body e Bodies ao Matter
         const {Body, Bodies} = Phaser.Physics.Matter.Matter;
@@ -26,6 +27,7 @@ export default class Inimigo extends Phaser.Physics.Matter.Sprite {
     static preload(scene) {
         scene.load.atlas('inimigo', 'assets/images/inimigo.png', 'assets/images/inimigo_atlas.json');
         scene.load.animation('inimigo_anim', 'assets/images/inimigo_anim.json');
+        scene.load.audio('inimigoDamaged', 'assets/audios/inimigoDamaged.mp3');
     }
 
     //propriedade de velocidade existe no corpo "body" de um matter sprite
@@ -39,6 +41,10 @@ export default class Inimigo extends Phaser.Physics.Matter.Sprite {
           this.clearTint();
         }, 100);
       }
+
+      inimigoDamage(){
+        this.inimigoDamaged.play();
+    }
     
     
     

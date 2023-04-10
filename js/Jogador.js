@@ -9,6 +9,7 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
         this.spriteEspada = new Phaser.GameObjects.Sprite(this.scene , 0,0,'espada', 82);
         this.audioSteps = this.scene.sound.add('audioSteps');
         this.audioSword = this.scene.sound.add('swordSound');
+        this.playerDamaged = this.scene.sound.add('playerDamaged');
         //diminui o tamanho da espada
         this.spriteEspada.setScale(0.7);
         this.spriteEspada.setOrigin(-0.15,0.75);
@@ -39,6 +40,7 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
         scene.load.spritesheet('espada' , 'assets/images/utensilios.png', {frameWidth:32,frameHeight:32});
         scene.load.audio('audioSteps', 'assets/audios/audioSteps.ogg');
         scene.load.audio('swordSound', 'assets/audios/swordSound.ogg');
+        scene.load.audio('playerDamaged', 'assets/audios/playerDamaged.mp3');
     }
 
     //propriedade de velocidade existe no corpo "body" de um matter sprite
@@ -52,6 +54,14 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
           this.clearTint();
         }, 100);
       }
+
+      pauseSteps(){
+        this.audioSteps.stop();
+    }
+
+      playerDamage(){
+        this.playerDamaged.play();
+    }
 
     update() {
         
