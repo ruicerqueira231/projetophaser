@@ -2,11 +2,12 @@
 export default class Inimigo extends Phaser.Physics.Matter.Sprite {
 
     constructor(dados) {
-        let {scene,x,y,texture,frame,scale,vida} = dados;
+        let {scene,x,y,texture,frame,scale,vida,tipo} = dados;
         super(scene.matter.world,x,y,texture,frame);
         this.scene.add.existing(this);
         this.vida = vida; //vida do inimigo
         this.inimigoDamaged = this.scene.sound.add('inimigoDamaged');
+        this.tipo = tipo;
         
         //buscar o Body e Bodies ao Matter
         const {Body, Bodies} = Phaser.Physics.Matter.Matter;
@@ -16,7 +17,7 @@ export default class Inimigo extends Phaser.Physics.Matter.Sprite {
         //associar sensor e culisão a um so corpo e definir propriedades
         const corpoComposto = Body.create({
             parts:[jogadorColidir, jogadorSensor],
-            frictionAir: 0.4,
+            frictionAir: 0.7,
         });
         this.setScale(scale);// tamanho do inimigo
         this.setExistingBody(corpoComposto);//criar corpo
@@ -24,9 +25,15 @@ export default class Inimigo extends Phaser.Physics.Matter.Sprite {
         
     }
 
-    static preload(scene) {
-        scene.load.atlas('inimigo', 'assets/images/inimigo.png', 'assets/images/inimigo_atlas.json');
-        scene.load.animation('inimigo_anim', 'assets/images/inimigo_anim.json');
+    static preload(scene, tipo) {
+        if(tipo == "inimigo") {
+            scene.load.atlas('inimigo', 'assets/images/inimigo.png', 'assets/images/inimigo_atlas.json');
+            scene.load.animation('inimigo_anim', 'assets/images/inimigo_anim.json');
+        } else if(tipo == "inimigogoglem") {
+            scene.load.atlas('inimigogoglem', 'assets/images/inimigogoglem.png', 'assets/images/inimigogoglem_atlas.json');
+            scene.load.animation('inimigogoglem_anim', 'assets/images/inimigogoglem_anim.json');
+        }
+        
         scene.load.audio('inimigoDamaged', 'assets/audios/inimigoDamaged.mp3');
     }
 
@@ -68,8 +75,10 @@ export default class Inimigo extends Phaser.Physics.Matter.Sprite {
 
         if(Math.abs(this.velocity.x)> 0.1 || Math.abs(this.velocity.y)> 0.1) { 
             this.anims.play(('andar'), true);
-        } else {
+        } else if (this.tipo == "inimigo") {
             this.anims.play(('andar'), false);
+        } else if (this.tipo == "inimigogoglem") {
+            this.anims.play(('parado'), true);
         }
 
         if(this.x < jogador.x) {

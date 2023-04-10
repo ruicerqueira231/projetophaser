@@ -19,16 +19,12 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
         //buscar o Body e Bodies ao Matter
         const {Body, Bodies} = Phaser.Physics.Matter.Matter;
         //definir uma divisão circular de colisão e um sensor circular para usos futuros
-        var jogadorColidir = Bodies.circle(this.x, this.y, 8, {isSensor:false, label:"jogadorColidir"});
-        var jogadorSensor = Bodies.circle(this.x, this.y, 8, {isSensor:true, label:"jogadorSensor"});
+        var jogadorColidir = Bodies.rectangle(this.x, this.y, 8,8, {isSensor:false, label:"jogadorColidir"});
         //associar sensor e culisão a um so corpo e definir propriedades
-        const corpoComposto = Body.create({
-            parts:[jogadorColidir, jogadorSensor],
-            frictionAir: 0.35,
-        });
+        const corpo = Body.create({ parts:[jogadorColidir], frictionAir: 0.35,});
         
         
-        this.setExistingBody(corpoComposto);//criar corpo
+        this.setExistingBody(corpo);//criar corpo
         this.setFixedRotation(); //não rodar o boneco ao colidir com outro
 
         this.scene.input.on('pointermove', pointer => this.setFlipX(pointer.worldX < this.x));
