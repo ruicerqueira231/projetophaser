@@ -7,7 +7,7 @@ var textoVidas;
 var lifeKey;
 var gameOver = false;
 
-export default class cenaFinal extends Phaser.Scene {
+export default class CenaFinal extends Phaser.Scene {
 
     constructor() {
         super({ key: 'CenaFinal' });
@@ -123,7 +123,8 @@ export default class cenaFinal extends Phaser.Scene {
 
     //função que inicia a cena Final
     nextScene(){
-        this.scene.start("cenaMenuFinal");
+        this.scene.stop();
+        this.scene.start("CenaMenuFinal");
     }
     
 

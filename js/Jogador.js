@@ -5,20 +5,20 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
         let {scene,x,y,texture,frame} = dados;
         super(scene.matter.world,x,y,texture,frame);
         this.scene.add.existing(this);
-        this.vida = 10;
+        this.vida = 20;
         this.spriteEspada = new Phaser.GameObjects.Sprite(this.scene , 0,0,'espada', 82);
         this.audioSteps = this.scene.sound.add('audioSteps');
         this.audioSword = this.scene.sound.add('swordSound');
         //diminui o tamanho da espada
         this.spriteEspada.setScale(0.7);
-        this.spriteEspada.setOrigin(0.25,0.75);
+        this.spriteEspada.setOrigin(-0.15,0.75);
         //Para ficar visivel na scene do jogo
         this.scene.add.existing(this.spriteEspada);
         this.spriteEspada.visible = true;
         //buscar o Body e Bodies ao Matter
         const {Body, Bodies} = Phaser.Physics.Matter.Matter;
         //definir uma divisão circular de colisão e um sensor circular para usos futuros
-        var jogadorColidir = Bodies.circle(this.x, this.y, 12, {isSensor:false, label:"jogadorColidir"});
+        var jogadorColidir = Bodies.circle(this.x, this.y, 8, {isSensor:false, label:"jogadorColidir"});
         var jogadorSensor = Bodies.circle(this.x, this.y, 24, {isSensor:true, label:"jogadorSensor"});
         //associar sensor e culisão a um so corpo e definir propriedades
         const corpoComposto = Body.create({
@@ -55,6 +55,7 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
 
     update() {
         
+
         const velocidadeDoJogador = 1.5;
     
         let jogadorVelocidade = new Phaser.Math.Vector2(); //usar os vetores do phaser para controlar o movimento do jogador
@@ -96,18 +97,18 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
         this.rotateEspada();
     }
      rotateEspada(){
-        let clique = this.scene.input.activePointer;
-        if(clique.isDown){
-            this.rotacaoEspada += 6;
+        
+        if(this.scene.input.activePointer.leftButtonDown()){
+            this.rotacaoEspada += 20;
             if (!this.audioSword.isPlaying) {
                 this.audioSword.play();
             }
         } else {
             this.rotacaoEspada = 0;
         }
-         if(this.rotacaoEspada > 360){
-             this.rotacaoEspada = 0;
-         }
+        if(this.rotacaoEspada > 360){
+            this.rotacaoEspada = 0;
+        }
         this.spriteEspada.setAngle(this.rotacaoEspada);
 
         if(this.flipX){

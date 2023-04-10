@@ -1,13 +1,12 @@
 import Jogador from "./Jogador.js";
 import Inimigo from "./Inimigo.js";
-import cenaFinal from "./cenaFinal.js";
 
 var resetLife;
 var textoVidas;
 var lifeKey;
 var gameOver = false;
 
-export default class cenaPrincipal extends Phaser.Scene {
+export default class CenaPrincipal extends Phaser.Scene {
 
     constructor() {
         super({ key: 'CenaPrincipal' });
@@ -48,6 +47,7 @@ export default class cenaPrincipal extends Phaser.Scene {
         const camada5 = map.createStaticLayer("Camada de Blocos 5", tileset,0,0);
         this.player = new Jogador({scene:this, x:100, y:100, texture:'menina', frame: 'townsfolk_f_walk_1'});
         this.inimigo = new Inimigo({scene:this, x:300, y:300, texture:'inimigo', frame: 'crabmoving1'});
+        this.inimigo.setScale(3);
           
         const camada4 = map.createStaticLayer("Camada de Blocos 4", tileset,0,0);
 
@@ -97,8 +97,8 @@ export default class cenaPrincipal extends Phaser.Scene {
 
         let collisionStartTime = 0;
         let collisionDuration = 0;
-        const decrementInterval = 1000; //intervalo para tirar dano jogador
-        const decrementInterval2 = 300; //intervalo para tirar dano inimigo
+        const decrementInterval = 200; //intervalo para tirar dano jogador
+        const decrementInterval2 = 100; //intervalo para tirar dano inimigo
         
         this.matter.world.on("collisionstart", (event, bodyA, bodyB) => {
           if ((bodyA.label == "jogadorColidir" && bodyB.label == "inimigoColidir") || 
@@ -119,7 +119,7 @@ export default class cenaPrincipal extends Phaser.Scene {
               this.player.vida -= 1;
               this.player.danoSofrido();
               collisionDuration = 0;
-            } else if (collisionDuration >= decrementInterval2 && this.input.activePointer.isDown) {
+            } else if (collisionDuration >= decrementInterval2 && this.input.activePointer.leftButtonDown() && this.input.activePointer.getDuration() < 100) {
               this.inimigo.vida -= 10;
               this.inimigo.danoSofrido();
               console.log(this.inimigo.vida);
@@ -132,10 +132,12 @@ export default class cenaPrincipal extends Phaser.Scene {
 
     //função que inicia a cena Final
     nextScene(){
+      this.scene.stop();
       this.scene.start("CenaFinal");
     }
 
     update() {
+      
 
         this.cameras.main.scrollX = this.player.x - this.cameras.main.width / 2;
         this.cameras.main.scrollY = this.player.y - this.cameras.main.height / 2;
