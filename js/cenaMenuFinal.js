@@ -21,7 +21,7 @@ export default class cenaMenuFinal extends Phaser.Scene {
       var playButton = this.add.sprite(20, 20, 'playButton').setInteractive();
       playButton.on('pointerdown', () => {
         this.scene.stop();
-        this.scene.start('CenaPrincipal');
+        this.scene.start('CenaMenu');
       });
     }
   }

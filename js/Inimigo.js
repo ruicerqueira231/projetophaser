@@ -2,7 +2,7 @@
 export default class Inimigo extends Phaser.Physics.Matter.Sprite {
 
     constructor(dados) {
-        let {scene,x,y,texture,frame} = dados;
+        let {scene,x,y,texture,frame,scale} = dados;
         super(scene.matter.world,x,y,texture,frame);
         this.scene.add.existing(this);
         this.vida = 1;
@@ -12,13 +12,13 @@ export default class Inimigo extends Phaser.Physics.Matter.Sprite {
         const {Body, Bodies} = Phaser.Physics.Matter.Matter;
         //definir uma divisão circular de colisão e um sensor circular para usos futuros
         var jogadorColidir = Bodies.circle(this.x, this.y, 8, {isSensor:false, label:"inimigoColidir"});
-        var jogadorSensor = Bodies.circle(this.x, this.y, 8, {isSensor:true, label:"inimigoSensor"});
+        var jogadorSensor = Bodies.circle(this.x, this.y, 24, {isSensor:true, label:"inimigoSensor"});
         //associar sensor e culisão a um so corpo e definir propriedades
         const corpoComposto = Body.create({
             parts:[jogadorColidir, jogadorSensor],
-            frictionAir: 0.7,
+            frictionAir: 0.4,
         });
-        
+        this.setScale(scale);
         this.setExistingBody(corpoComposto);//criar corpo
         this.setFixedRotation(); //não rodar o boneco ao colidir com outro
         
@@ -56,8 +56,6 @@ export default class Inimigo extends Phaser.Physics.Matter.Sprite {
         }
 
         if (this.vida <= 0) {
-            this.setActive(false).setVisible(false); // Make the sprite inactive and invisible
-            this.world.remove(this); // Remove the sprite from the Matter world
             this.scene.nextScene();
         }
 

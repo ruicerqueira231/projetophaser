@@ -19,7 +19,7 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
         const {Body, Bodies} = Phaser.Physics.Matter.Matter;
         //definir uma divisão circular de colisão e um sensor circular para usos futuros
         var jogadorColidir = Bodies.circle(this.x, this.y, 8, {isSensor:false, label:"jogadorColidir"});
-        var jogadorSensor = Bodies.circle(this.x, this.y, 24, {isSensor:true, label:"jogadorSensor"});
+        var jogadorSensor = Bodies.circle(this.x, this.y, 8, {isSensor:true, label:"jogadorSensor"});
         //associar sensor e culisão a um so corpo e definir propriedades
         const corpoComposto = Body.create({
             parts:[jogadorColidir, jogadorSensor],

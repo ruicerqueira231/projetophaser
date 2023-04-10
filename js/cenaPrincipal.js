@@ -46,8 +46,7 @@ export default class CenaPrincipal extends Phaser.Scene {
         map.createStaticLayer("Camada de Blocos 3", tileset,0,0);
         const camada5 = map.createStaticLayer("Camada de Blocos 5", tileset,0,0);
         this.player = new Jogador({scene:this, x:100, y:100, texture:'menina', frame: 'townsfolk_f_walk_1'});
-        this.inimigo = new Inimigo({scene:this, x:300, y:300, texture:'inimigo', frame: 'crabmoving1'});
-        this.inimigo.setScale(3);
+        this.inimigo = new Inimigo({scene:this, x:300, y:300, texture:'inimigo', frame: 'crabmoving1', scale: 3});
           
         const camada4 = map.createStaticLayer("Camada de Blocos 4", tileset,0,0);
 
@@ -97,20 +96,20 @@ export default class CenaPrincipal extends Phaser.Scene {
 
         let collisionStartTime = 0;
         let collisionDuration = 0;
-        const decrementInterval = 200; //intervalo para tirar dano jogador
+        const decrementInterval = 500; //intervalo para tirar dano jogador
         const decrementInterval2 = 100; //intervalo para tirar dano inimigo
         
         this.matter.world.on("collisionstart", (event, bodyA, bodyB) => {
-          if ((bodyA.label == "jogadorColidir" && bodyB.label == "inimigoColidir") || 
-              (bodyB.label == "inimigoColidir" && bodyA.label == "jogadorColidir")) {
+          if ((bodyA.label == "jogadorColidir" && bodyB.label == "inimigoSensor") || 
+              (bodyB.label == "inimigoSensor" && bodyA.label == "jogadorColidir")) {
             collisionStartTime = this.time.now;
             collisionDuration = 0;
           }
         });
         
         this.matter.world.on("collisionactive", (event, bodyA, bodyB) => {
-          if ((bodyA.label == "jogadorColidir" && bodyB.label == "inimigoColidir") || 
-              (bodyB.label == "inimigoColidir" && bodyA.label == "jogadorColidir")) {
+          if ((bodyA.label == "jogadorColidir" && bodyB.label == "inimigoSensor") || 
+              (bodyB.label == "inimigoSensor" && bodyA.label == "jogadorColidir")) {
             const currentTime = this.time.now;
             const deltaTime = currentTime - collisionStartTime;
             collisionStartTime = currentTime;
@@ -119,7 +118,8 @@ export default class CenaPrincipal extends Phaser.Scene {
               this.player.vida -= 1;
               this.player.danoSofrido();
               collisionDuration = 0;
-            } else if (collisionDuration >= decrementInterval2 && this.input.activePointer.leftButtonDown() && this.input.activePointer.getDuration() < 100) {
+            } else if (collisionDuration >= decrementInterval2 && this.input.activePointer.leftButtonDown() && 
+                      this.input.activePointer.getDuration() > 100 && this.input.activePointer.getDuration() < 500)  {
               this.inimigo.vida -= 10;
               this.inimigo.danoSofrido();
               console.log(this.inimigo.vida);
