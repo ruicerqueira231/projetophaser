@@ -25,5 +25,9 @@ export default class cenaMenu extends Phaser.Scene {
       this.scene.stop();
       this.scene.start("CenaPrincipal");
     });
+
+    this.add.text(350, 410, 'Desenvolvido por:', { fontSize: '10px', fill: '#fff' });
+    this.add.text(355, 420, 'Tiago Oliveira', { fontSize: '10px', fill: '#fff' });
+    this.add.text(355, 430, 'Rui Cerqueira', { fontSize: '10px', fill: '#fff' });
   }
 }
