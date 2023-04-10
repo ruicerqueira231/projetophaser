@@ -81,14 +81,15 @@ export default class cenaPrincipal extends Phaser.Scene {
         resetLife = this.input.keyboard.addKey('T');
 
         //texto vidas
-        textoVidas = this.add.text(16, 16, 'Vidas: ' + vidas, { fontSize: '20px', fill: '#fff' });
+        textoVidas = this.add.text(16, 16, 'Vidas: ' + this.player.vida, { fontSize: '20px', fill: '#fff' });
 
 
         //código para tirar vidas ao haver colisão entre os inimigos
 
         let collisionStartTime = 0;
         let collisionDuration = 0;
-        const decrementInterval = 1000; //intervalo para tirar dano
+        const decrementInterval = 1000; //intervalo para tirar dano jogador
+        const decrementInterval2 = 300; //intervalo para tirar dano inimigo
 
         //declarar variavel para clique no rato
         var clique = this.input.activePointer;
@@ -110,16 +111,22 @@ export default class cenaPrincipal extends Phaser.Scene {
             collisionDuration += deltaTime;
             if (collisionDuration >= decrementInterval) {
                 collisionDuration = 0;
-                vidas--;
+                this.player.vida = this.player.vida - 1;
+                this.player.danoSofrido();
+                console.log(this.player.vida);
+            } else if (collisionDuration >= decrementInterval2) {
+                collisionDuration = 0;
+                if(clique.isDown){
+                    this.inimigo.vida = this.inimigo.vida - 10;
+                    this.inimigo.danoSofrido();
+                    console.log(this.inimigo.vida);
+                }
             }
-            if(clique.isDown){
-                this.matter.world.remove(this.inimigo);
-                this.inimigo.visible=false;
-            }
+
+
         }
         });
 
-        
 }
     
 
@@ -129,6 +136,7 @@ export default class cenaPrincipal extends Phaser.Scene {
     }
 
     update() {
+
         this.player.update(); //updates do jogador
         this.inimigo.update(this.player);
 
@@ -140,17 +148,17 @@ export default class cenaPrincipal extends Phaser.Scene {
 
         //update cheats
         if(lifeKey.isDown){
-            vidas = 1000;
+            this.player.vida = 1000;
         }
         if(resetLife.isDown){
-            vidas = 10;
+            this.player.vida = 10;
         }
 
-        if(vidas === 0){
+        if(this.player.vida === 0){
             gameOver=true;
         }
         
-        textoVidas.setText("Vidas: "+ vidas);
+        textoVidas.setText("Vidas: "+ this.player.vida);
         
     }
 }

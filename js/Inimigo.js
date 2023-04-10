@@ -5,7 +5,8 @@ export default class Inimigo extends Phaser.Physics.Matter.Sprite {
         let {scene,x,y,texture,frame} = dados;
         super(scene.matter.world,x,y,texture,frame);
         this.scene.add.existing(this);
-
+        this.vida = 100;
+        
         //buscar o Body e Bodies ao Matter
         const {Body, Bodies} = Phaser.Physics.Matter.Matter;
         //definir uma divisão circular de colisão e um sensor circular para usos futuros
@@ -33,8 +34,21 @@ export default class Inimigo extends Phaser.Physics.Matter.Sprite {
         return this.body.velocity;
     } 
 
+    danoSofrido() {
+        this.setTint(0x0000ff);
+        setTimeout(() => {
+          this.clearTint();
+        }, 100);
+      }
+     
+
     update(jogador) {
-        this.health = 40;
+
+        if (this.vida <= 0) {
+            this.setActive(false).setVisible(false); // Make the sprite inactive and invisible
+            this.world.remove(this); // Remove the sprite from the Matter world
+        }
+
         let inimigoVelocidade = new Phaser.Math.Vector2();
 
         if(Math.abs(this.velocity.x)> 0.1 || Math.abs(this.velocity.y)> 0.1) { 
@@ -54,6 +68,8 @@ export default class Inimigo extends Phaser.Physics.Matter.Sprite {
         } else {
             inimigoVelocidade.y = -1;
         }
+
+        
 
         // if((this.y == jogador.y)&&(this.x < jogador.x)) {
         //     inimigoVelocidade.x = 1;
@@ -87,7 +103,7 @@ export default class Inimigo extends Phaser.Physics.Matter.Sprite {
 */
         inimigoVelocidade.normalize();
         this.setVelocity(inimigoVelocidade.x, inimigoVelocidade.y);
-    
+
     }
 
     /*
