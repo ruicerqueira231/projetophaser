@@ -77,7 +77,6 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
             this.audioSteps.setRate(2.0);
             jogadorVelocidade.scale(velocidadeDoJogador*3);
         } else {
-            this.audioSteps.setRate(1.0);
             jogadorVelocidade.scale(velocidadeDoJogador);
         }
         this.setVelocity(jogadorVelocidade.x, jogadorVelocidade.y);
@@ -106,7 +105,7 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
         } else {
             this.rotacaoEspada = 0;
         }
-         if(this.rotacaoEspada > 60){
+         if(this.rotacaoEspada > 360){
              this.rotacaoEspada = 0;
          }
         this.spriteEspada.setAngle(this.rotacaoEspada);

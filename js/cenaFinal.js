@@ -58,7 +58,13 @@ export default class cenaFinal extends Phaser.Scene {
         this.matter.world.convertTilemapLayer(camada3);
         this.matter.world.convertTilemapLayer(camada4);
 
-        
+        //camera
+        let camera = this.cameras.main;
+        camera.zoom = 2; //zoom aplicado
+        camera.startFollow(this.player); //seguir o jogador
+        camera.setLerp(0.1,0.1); //delay na camera
+        camera.setBounds(0,0,this.game.config.width, this.game.config.height);
+
         //teclas utilizadas pelo jogador
         this.player.inputKeys = this.input.keyboard.addKeys({
             cima: Phaser.Input.Keyboard.KeyCodes.W,
