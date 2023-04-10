@@ -54,7 +54,7 @@ export default class cenaPrincipal extends Phaser.Scene {
         //teste - botão para trocar de cena
         let button = this.add.sprite(200,200,"botao");
         button.setInteractive();
-        button.on('pointerdown', this.nextScene.bind(this));
+        //button.on('pointerdown', );
 
         //colisões dos tiletmapslayers
         camada1.setCollisionByProperty({colisoes:true}); //colisões das aguas por voltar
@@ -65,6 +65,12 @@ export default class cenaPrincipal extends Phaser.Scene {
         this.matter.world.convertTilemapLayer(camada4);
         this.matter.world.convertTilemapLayer(camada5);
 
+
+        //camera
+        let camera = this.cameras.main;
+        camera.zoom = 2;
+        camera.startFollow(this.player);
+        
         
         //teclas utilizadas pelo jogador
         this.player.inputKeys = this.input.keyboard.addKeys({
@@ -76,7 +82,6 @@ export default class cenaPrincipal extends Phaser.Scene {
         })
 
         //cheats
-
         lifeKey = this.input.keyboard.addKey('Q');
         resetLife = this.input.keyboard.addKey('T');
 
@@ -111,7 +116,6 @@ export default class cenaPrincipal extends Phaser.Scene {
             if (collisionDuration >= decrementInterval) {
               this.player.vida -= 1;
               this.player.danoSofrido();
-              console.log(this.player.vida);
               collisionDuration = 0;
             } else if (collisionDuration >= decrementInterval2 && this.input.activePointer.isDown) {
               this.inimigo.vida -= 10;
@@ -126,10 +130,13 @@ export default class cenaPrincipal extends Phaser.Scene {
 
     //função que inicia a cena Final
     nextScene(){
-           this.scene.start("CenaFinal");
+      this.scene.start("CenaFinal");
     }
 
     update() {
+
+        this.cameras.main.scrollX = this.player.x - this.cameras.main.width / 2;
+        this.cameras.main.scrollY = this.player.y - this.cameras.main.height / 2;
 
         this.player.update(); //updates do jogador
         this.inimigo.update(this.player);

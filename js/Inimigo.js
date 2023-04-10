@@ -47,6 +47,7 @@ export default class Inimigo extends Phaser.Physics.Matter.Sprite {
         if (this.vida <= 0) {
             this.setActive(false).setVisible(false); // Make the sprite inactive and invisible
             this.world.remove(this); // Remove the sprite from the Matter world
+            this.scene.nextScene();
         }
 
         let inimigoVelocidade = new Phaser.Math.Vector2();
