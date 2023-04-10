@@ -5,7 +5,6 @@ import cenaFinal from "./cenaFinal.js";
 var resetLife;
 var textoVidas;
 var lifeKey;
-var vidas = 10;
 var gameOver = false;
 
 export default class cenaPrincipal extends Phaser.Scene {
@@ -83,6 +82,8 @@ export default class cenaPrincipal extends Phaser.Scene {
         //texto vidas
         textoVidas = this.add.text(16, 16, 'Vidas: ' + this.player.vida, { fontSize: '20px', fill: '#fff' });
 
+        //declarar variavel para clique no rato
+        var clique = this.input.activePointer;
 
         //código para tirar vidas ao haver colisão entre os inimigos
 
@@ -90,42 +91,36 @@ export default class cenaPrincipal extends Phaser.Scene {
         let collisionDuration = 0;
         const decrementInterval = 1000; //intervalo para tirar dano jogador
         const decrementInterval2 = 300; //intervalo para tirar dano inimigo
-
-        //declarar variavel para clique no rato
-        var clique = this.input.activePointer;
-
+        
         this.matter.world.on("collisionstart", (event, bodyA, bodyB) => {
-        if ((bodyA.label == "jogadorColidir" && bodyB.label == "inimigoColidir") || 
-            (bodyB.label == "inimigoColidir" && bodyA.label == "jogadorColidir")) {
+          if ((bodyA.label == "jogadorColidir" && bodyB.label == "inimigoColidir") || 
+              (bodyB.label == "inimigoColidir" && bodyA.label == "jogadorColidir")) {
             collisionStartTime = this.time.now;
             collisionDuration = 0;
-        }
+          }
         });
-
+        
         this.matter.world.on("collisionactive", (event, bodyA, bodyB) => {
-        if ((bodyA.label == "jogadorColidir" && bodyB.label == "inimigoColidir") || 
-            (bodyB.label == "inimigoColidir" && bodyA.label == "jogadorColidir")) {
+          if ((bodyA.label == "jogadorColidir" && bodyB.label == "inimigoColidir") || 
+              (bodyB.label == "inimigoColidir" && bodyA.label == "jogadorColidir")) {
             const currentTime = this.time.now;
             const deltaTime = currentTime - collisionStartTime;
             collisionStartTime = currentTime;
             collisionDuration += deltaTime;
             if (collisionDuration >= decrementInterval) {
-                collisionDuration = 0;
-                this.player.vida = this.player.vida - 1;
-                this.player.danoSofrido();
-                console.log(this.player.vida);
-            } else if (collisionDuration >= decrementInterval2) {
-                collisionDuration = 0;
-                if(clique.isDown){
-                    this.inimigo.vida = this.inimigo.vida - 10;
-                    this.inimigo.danoSofrido();
-                    console.log(this.inimigo.vida);
-                }
+              this.player.vida -= 1;
+              this.player.danoSofrido();
+              console.log(this.player.vida);
+              collisionDuration = 0;
+            } else if (collisionDuration >= decrementInterval2 && this.input.activePointer.isDown) {
+              this.inimigo.vida -= 10;
+              this.inimigo.danoSofrido();
+              console.log(this.inimigo.vida);
+              collisionDuration = 0;
             }
-
-
-        }
+          }
         });
+        
 
 }
     
