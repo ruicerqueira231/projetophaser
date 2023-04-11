@@ -7,7 +7,7 @@ export default class cenaMenuFinal extends Phaser.Scene {
     // Load menu assets
       this.load.image("partes", "assets/images/RPG Nature Tileset.png");
       this.load.tilemapTiledJSON("mapa", "assets/images/mapa.json");
-      this.load.image('playButton', 'assets/images/playButton.png');
+      this.load.image('restart', 'assets/images/restart.png');
   }
 
   create() {
@@ -19,5 +19,12 @@ export default class cenaMenuFinal extends Phaser.Scene {
 
   const sobrevivexText = this.add.text(256, 160, 'You won the game', { fontSize: '20px', fill: '#fff' });
   sobrevivexText.setOrigin(0.5, 1);
+
+  var restartButton = this.add.sprite(256, 400, 'restart').setInteractive();
+    restartButton.setScale(0.1);
+    restartButton.on('pointerdown', () => {
+      this.scene.stop();
+      this.scene.start("CenaPrincipal");
+    });
   }
 }

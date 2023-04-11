@@ -49,7 +49,7 @@ export default class CenaFinal extends Phaser.Scene {
         const camada4 = map.createStaticLayer("Camada de Blocos 4", tileset2,0,0);
         //new Jogador({scene:this, x:100, y:100, texture:'menina', frame: 'townsfolk_f_walk_1'});
         this.player = new Jogador({scene:this, x:100, y:100, texture:'menina', frame: 'townsfolk_f_walk_1', vida: this.vidaJogador});
-        this.inimigo = new Inimigo({scene:this, x:300, y:300, texture:'inimigo', frame: 'crabmoving1', scale: 3, vida: 2000, tipo: "inimigogoglem"});
+        this.inimigo = new Inimigo({scene:this, x:300, y:300, texture:'inimigo', frame: 'crabmoving1', scale: 3, vida: 1, tipo: "inimigogoglem"});
         const camada3 = map.createStaticLayer("Camada de Blocos 3", tileset2,0,0);
 
         //colisões dos tiletmapslayers
