@@ -5,7 +5,7 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
         let {scene,x,y,texture,frame} = dados;
         super(scene.matter.world,x,y,texture,frame);
         this.scene.add.existing(this);
-        this.vida = 20;
+        this.vida = 10;
         this.spriteEspada = new Phaser.GameObjects.Sprite(this.scene , 0,0,'espada', 82);
         this.audioSteps = this.scene.sound.add('audioSteps');
         this.audioSword = this.scene.sound.add('swordSound');

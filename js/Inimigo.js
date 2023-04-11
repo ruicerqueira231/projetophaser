@@ -12,8 +12,15 @@ export default class Inimigo extends Phaser.Physics.Matter.Sprite {
         //buscar o Body e Bodies ao Matter
         const {Body, Bodies} = Phaser.Physics.Matter.Matter;
         //definir uma divisão circular de colisão e um sensor circular para usos futuros
-        var jogadorColidir = Bodies.circle(this.x, this.y, 8, {isSensor:false, label:"inimigoColidir"});
-        var jogadorSensor = Bodies.circle(this.x, this.y, 40, {isSensor:true, label:"inimigoSensor"});
+
+        if(this.tipo == "goglem") {
+            var jogadorColidir = Bodies.circle(this.x, this.y, 8, {isSensor:false, label:"inimigoColidir"});
+            var jogadorSensor = Bodies.circle(this.x, this.y, 40, {isSensor:true, label:"inimigoSensor"});
+        } else if (this.tipo == "caranguejo") {
+            var jogadorColidir = Bodies.circle(this.x, this.y, 8, {isSensor:false, label:"inimigoColidir"});
+            var jogadorSensor = Bodies.circle(this.x, this.y, 40, {isSensor:true, label:"inimigoSensor"});
+        }
+        
         //associar sensor e culisão a um so corpo e definir propriedades
         const corpoComposto = Body.create({
             parts:[jogadorColidir, jogadorSensor],
@@ -22,6 +29,7 @@ export default class Inimigo extends Phaser.Physics.Matter.Sprite {
         this.setScale(scale);// tamanho do inimigo
         this.setExistingBody(corpoComposto);//criar corpo
         this.setFixedRotation(); //não rodar o boneco ao colidir com outro
+
         
     }
 
@@ -71,7 +79,7 @@ export default class Inimigo extends Phaser.Physics.Matter.Sprite {
         if(Math.abs(this.velocity.x)> 0.1 || Math.abs(this.velocity.y)> 0.1) { 
 
             if(this.tipo == "goglem") {
-                this.anims.play(('golem_andar'), true);
+                this.anims.play(('goglem_andar'), true);
             } else if (this.tipo == "caranguejo"){
                 this.anims.play(('caranguejo_andar'), true);
             }

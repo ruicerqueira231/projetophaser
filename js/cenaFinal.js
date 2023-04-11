@@ -49,7 +49,7 @@ export default class CenaFinal extends Phaser.Scene {
         const camada4 = map.createStaticLayer("Camada de Blocos 4", tileset2,0,0);
         //new Jogador({scene:this, x:100, y:100, texture:'menina', frame: 'townsfolk_f_walk_1'});
         this.player = new Jogador({scene:this, x:100, y:100, texture:'menina', frame: 'townsfolk_f_walk_1', vida: this.vidaJogador});
-        this.inimigo = new Inimigo({scene:this, x:300, y:300, texture:'inimigos', frame: 'crabmoving1', scale: 3, vida: 100, tipo: "caranguejo"});
+        this.inimigo = new Inimigo({scene:this, x:300, y:300, texture:'inimigos', frame: 'crabmoving1', scale: 3, vida: 500, tipo: "caranguejo"});
         const camada3 = map.createStaticLayer("Camada de Blocos 3", tileset2,0,0);
 
         //colisões dos tiletmapslayers
@@ -76,6 +76,7 @@ export default class CenaFinal extends Phaser.Scene {
             direita: Phaser.Input.Keyboard.KeyCodes.D,
             velocidade: Phaser.Input.Keyboard.KeyCodes.M,
             camera: Phaser.Input.Keyboard.KeyCodes.C,
+            camera: Phaser.Input.Keyboard.KeyCodes.SPACE,
         })
 
         //cheats
@@ -124,6 +125,7 @@ export default class CenaFinal extends Phaser.Scene {
             }
           }
         });
+
 }
     
 
@@ -159,8 +161,8 @@ export default class CenaFinal extends Phaser.Scene {
             gameOver=true;
         }
         
-        playerVidas.setText("Vidas: "+ this.player.vida);
-        inimigoVidas.setText("Inimigo: "+ this.inimigo.vida);
+        playerVidas.setText("YOUR HP: "+ this.player.vida);
+        inimigoVidas.setText("BOSS HP: "+ this.inimigo.vida);
         
     }
 }

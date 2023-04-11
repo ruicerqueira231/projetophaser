@@ -16,9 +16,15 @@ export default class cenaMenuFinal extends Phaser.Scene {
   this.map = map;
   const tileset = map.addTilesetImage("RPG Nature Tileset", "partes", 32,32,0,0);
   const camada1 = map.createStaticLayer("Camada de Blocos 1", tileset,0,0);
+  
+  var cenaPrincipal = this.scene.get("CenaPrincipal");
+  this.score = this.time.now - cenaPrincipal.score;
+  this.score /= 1000;
 
-  const sobrevivexText = this.add.text(256, 160, 'You won the game', { fontSize: '20px', fill: '#fff' });
+  const sobrevivexText = this.add.text(256, 160, 'You won the game!', { fontSize: '20px', fill: '#fff' });
+  const score = this.add.text(256, 200, `Time: ${this.score.toFixed(2)} sec`, { fontSize: '32px', fill: '#fff' });
   sobrevivexText.setOrigin(0.5, 1);
+  score.setOrigin(0.5, 1);
 
   var restartButton = this.add.sprite(256, 400, 'restart').setInteractive();
     restartButton.setScale(0.1);

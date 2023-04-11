@@ -47,7 +47,7 @@ export default class CenaPrincipal extends Phaser.Scene {
         map.createStaticLayer("Camada de Blocos 3", tileset,0,0);
         const camada5 = map.createStaticLayer("Camada de Blocos 5", tileset,0,0);
         this.player = new Jogador({scene:this, x:100, y:100, texture:'menina', frame: 'townsfolk_f_walk_1'});
-        this.inimigo = new Inimigo({scene:this, x:300, y:300, texture:'inimigos', frame: 'golem_idle_1', scale: 2, vida: 100, tipo: "goglem"});
+        this.inimigo = new Inimigo({scene:this, x:300, y:300, texture:'inimigos', frame: 'golem_idle_1', scale: 2, vida: 1, tipo: "goglem"});
           
         const camada4 = map.createStaticLayer("Camada de Blocos 4", tileset,0,0);
 
@@ -75,8 +75,8 @@ export default class CenaPrincipal extends Phaser.Scene {
         resetLife = this.input.keyboard.addKey('T');
 
         //texto vidas
-        playerVidas = this.add.text(16, 16, 'Vidas: ' + this.player.vida, { fontSize: '20px', fill: '#fff' });
-        inimigoVidas = this.add.text(350, 16, 'Inimigo: ' + this.inimigo.vida, { fontSize: '20px', fill: '#fff' });
+        playerVidas = this.add.text(16, 16, { fontSize: '20px', fill: '#fff' });
+        inimigoVidas = this.add.text(350, 16, { fontSize: '20px', fill: '#fff' });
 
         //código para tirar vidas ao haver colisão entre os inimigos
 
@@ -114,6 +114,8 @@ export default class CenaPrincipal extends Phaser.Scene {
             }
           }
         });
+        this.score = this.time.now;
+
 }
     
 
@@ -148,8 +150,8 @@ export default class CenaPrincipal extends Phaser.Scene {
             gameOver=true;
         }
         
-        playerVidas.setText("Vidas: "+ this.player.vida);
-        inimigoVidas.setText("Inimigo: "+ this.inimigo.vida);
+        playerVidas.setText("YOUR HP: "+ this.player.vida);
+        inimigoVidas.setText("BOSS HP: "+ this.inimigo.vida);
         
     }
 }
