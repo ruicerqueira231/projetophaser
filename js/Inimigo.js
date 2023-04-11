@@ -13,7 +13,7 @@ export default class Inimigo extends Phaser.Physics.Matter.Sprite {
         const {Body, Bodies} = Phaser.Physics.Matter.Matter;
         //definir uma divisão circular de colisão e um sensor circular para usos futuros
 
-        if(this.tipo == "goglem") {
+        if(this.tipo == "lobo") {
             var jogadorColidir = Bodies.circle(this.x, this.y, 8, {isSensor:false, label:"inimigoColidir"});
             var jogadorSensor = Bodies.circle(this.x, this.y, 40, {isSensor:true, label:"inimigoSensor"});
         } else if (this.tipo == "caranguejo") {
@@ -78,15 +78,15 @@ export default class Inimigo extends Phaser.Physics.Matter.Sprite {
 
         if(Math.abs(this.velocity.x)> 0.1 || Math.abs(this.velocity.y)> 0.1) { 
 
-            if(this.tipo == "goglem") {
-                this.anims.play(('goglem_andar'), true);
+            if(this.tipo == "lobo") {
+                this.anims.play(('lobo_andar'), true);
             } else if (this.tipo == "caranguejo"){
                 this.anims.play(('caranguejo_andar'), true);
             }
         } else {
 
-            if(this.tipo == "goglem") {
-                this.anims.play(('goglem_parado'), true);
+            if(this.tipo == "lobo") {
+                this.anims.play(('lobo_parado'), true);
             } else if (this.tipo == "caranguejo"){
                 this.anims.play(('caranguejo_andar'), false);
             }

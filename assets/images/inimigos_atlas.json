@@ -1,10 +1,10 @@
 {
     "frames": [
         {
-            "filename": "golem_idle_1",
+            "filename": "wolf_walk_4",
             "frame": {
-                "w": 64,
-                "h": 64,
+                "w": 32,
+                "h": 32,
                 "x": 1,
                 "y": 1
             },
@@ -14,11 +14,11 @@
             }
         },
         {
-            "filename": "golem_idle_2",
+            "filename": "wolf_idle_2",
             "frame": {
-                "w": 64,
-                "h": 64,
-                "x": 66,
+                "w": 32,
+                "h": 32,
+                "x": 34,
                 "y": 1
             },
             "anchor": {
@@ -27,12 +27,12 @@
             }
         },
         {
-            "filename": "golem_idle_3",
+            "filename": "wolf_idle_3",
             "frame": {
-                "w": 64,
-                "h": 64,
+                "w": 32,
+                "h": 32,
                 "x": 1,
-                "y": 66
+                "y": 34
             },
             "anchor": {
                 "x": 0.5,
@@ -40,12 +40,12 @@
             }
         },
         {
-            "filename": "golem_idle_4",
+            "filename": "wolf_idle_4",
             "frame": {
-                "w": 64,
-                "h": 64,
-                "x": 66,
-                "y": 66
+                "w": 32,
+                "h": 32,
+                "x": 34,
+                "y": 34
             },
             "anchor": {
                 "x": 0.5,
@@ -53,11 +53,11 @@
             }
         },
         {
-            "filename": "golem_idle_5",
+            "filename": "wolf_walk_1",
             "frame": {
-                "w": 64,
-                "h": 64,
-                "x": 131,
+                "w": 32,
+                "h": 32,
+                "x": 67,
                 "y": 1
             },
             "anchor": {
@@ -66,12 +66,12 @@
             }
         },
         {
-            "filename": "golem_idle_6",
+            "filename": "wolf_walk_2",
             "frame": {
-                "w": 64,
-                "h": 64,
-                "x": 131,
-                "y": 66
+                "w": 32,
+                "h": 32,
+                "x": 67,
+                "y": 34
             },
             "anchor": {
                 "x": 0.5,
@@ -79,90 +79,12 @@
             }
         },
         {
-            "filename": "golem_walk_1",
+            "filename": "wolf_walk_3",
             "frame": {
-                "w": 64,
-                "h": 64,
+                "w": 32,
+                "h": 32,
                 "x": 1,
-                "y": 131
-            },
-            "anchor": {
-                "x": 0.5,
-                "y": 0.5
-            }
-        },
-        {
-            "filename": "golem_walk_2",
-            "frame": {
-                "w": 64,
-                "h": 64,
-                "x": 66,
-                "y": 131
-            },
-            "anchor": {
-                "x": 0.5,
-                "y": 0.5
-            }
-        },
-        {
-            "filename": "golem_walk_3",
-            "frame": {
-                "w": 64,
-                "h": 64,
-                "x": 131,
-                "y": 131
-            },
-            "anchor": {
-                "x": 0.5,
-                "y": 0.5
-            }
-        },
-        {
-            "filename": "golem_walk_4",
-            "frame": {
-                "w": 64,
-                "h": 64,
-                "x": 196,
-                "y": 1
-            },
-            "anchor": {
-                "x": 0.5,
-                "y": 0.5
-            }
-        },
-        {
-            "filename": "golem_walk_5",
-            "frame": {
-                "w": 64,
-                "h": 64,
-                "x": 196,
-                "y": 66
-            },
-            "anchor": {
-                "x": 0.5,
-                "y": 0.5
-            }
-        },
-        {
-            "filename": "golem_walk_6",
-            "frame": {
-                "w": 64,
-                "h": 64,
-                "x": 196,
-                "y": 131
-            },
-            "anchor": {
-                "x": 0.5,
-                "y": 0.5
-            }
-        },
-        {
-            "filename": "crabmoving4",
-            "frame": {
-                "w": 20,
-                "h": 20,
-                "x": 1,
-                "y": 196
+                "y": 67
             },
             "anchor": {
                 "x": 0.5,
@@ -174,8 +96,8 @@
             "frame": {
                 "w": 20,
                 "h": 20,
-                "x": 22,
-                "y": 196
+                "x": 34,
+                "y": 67
             },
             "anchor": {
                 "x": 0.5,
@@ -187,8 +109,8 @@
             "frame": {
                 "w": 20,
                 "h": 20,
-                "x": 43,
-                "y": 196
+                "x": 55,
+                "y": 67
             },
             "anchor": {
                 "x": 0.5,
@@ -200,8 +122,21 @@
             "frame": {
                 "w": 20,
                 "h": 20,
-                "x": 64,
-                "y": 196
+                "x": 76,
+                "y": 67
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "crabmoving4",
+            "frame": {
+                "w": 20,
+                "h": 20,
+                "x": 100,
+                "y": 1
             },
             "anchor": {
                 "x": 0.5,

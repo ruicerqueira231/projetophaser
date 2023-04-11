@@ -25,66 +25,50 @@
             ]
         },
         {
-            "key": "goglem_parado",
+            "key": "lobo_parado",
             "type": "frames",
             "repeat": -1,
             "frameRate": 12,
             "frames": [
                 {
                     "key": "inimigos",
-                    "frame": "golem_idle_1"
+                    "frame": "wolf_idle_1"
                 },
                 {
                     "key": "inimigos",
-                    "frame": "golem_idle_2"
+                    "frame": "wolf_idle_2"
                 },
                 {
                     "key": "inimigos",
-                    "frame": "golem_idle_3"
+                    "frame": "wolf_idle_3"
                 },
                 {
                     "key": "inimigos",
-                    "frame": "golem_idle_4"
-                },
-                {
-                    "key": "inimigos",
-                    "frame": "golem_idle_5"
-                },
-                {
-                    "key": "inimigos",
-                    "frame": "golem_idle_6"
+                    "frame": "wolf_idle_4"
                 }
             ]
         },
         {
-            "key": "goglem_andar",
+            "key": "lobo_andar",
             "type": "frames",
             "repeat": -1,
             "frameRate": 12,
             "frames": [
                 {
                     "key": "inimigos",
-                    "frame": "golem_walk_1"
+                    "frame": "wolf_walk_1"
                 },
                 {
                     "key": "inimigos",
-                    "frame": "golem_walk_2"
+                    "frame": "wolf_walk_2"
                 },
                 {
                     "key": "inimigos",
-                    "frame": "golem_walk_3"
+                    "frame": "wolf_walk_3"
                 },
                 {
                     "key": "inimigos",
-                    "frame": "golem_walk_4"
-                },
-                {
-                    "key": "inimigos",
-                    "frame": "golem_walk_5"
-                },
-                {
-                    "key": "inimigos",
-                    "frame": "golem_walk_6"
+                    "frame": "wolf_walk_4"
                 }
             ]
         }
