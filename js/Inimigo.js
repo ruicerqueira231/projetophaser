@@ -25,15 +25,10 @@ export default class Inimigo extends Phaser.Physics.Matter.Sprite {
         
     }
 
-    static preload(scene, tipo) {
-        if(tipo == "inimigo") {
-            scene.load.atlas('inimigo', 'assets/images/inimigo.png', 'assets/images/inimigo_atlas.json');
-            scene.load.animation('inimigo_anim', 'assets/images/inimigo_anim.json');
-        } else if(tipo == "inimigogoglem") {
-            scene.load.atlas('inimigogoglem', 'assets/images/inimigogoglem.png', 'assets/images/inimigogoglem_atlas.json');
-            scene.load.animation('inimigogoglem_anim', 'assets/images/inimigogoglem_anim.json');
-        }
-        
+    static preload(scene) {
+        scene.load.atlas('inimigos', 'assets/images/inimigos.png', 'assets/images/inimigos_atlas.json');
+        scene.load.animation('inimigos_anim', 'assets/images/inimigos_anim.json');
+
         scene.load.audio('inimigoDamaged', 'assets/audios/inimigoDamaged.mp3');
     }
 
@@ -74,17 +69,28 @@ export default class Inimigo extends Phaser.Physics.Matter.Sprite {
         let inimigoVelocidade = new Phaser.Math.Vector2();
 
         if(Math.abs(this.velocity.x)> 0.1 || Math.abs(this.velocity.y)> 0.1) { 
-            this.anims.play(('andar'), true);
-        } else if (this.tipo == "inimigo") {
-            this.anims.play(('andar'), false);
-        } else if (this.tipo == "inimigogoglem") {
-            this.anims.play(('parado'), true);
+
+            if(this.tipo == "goglem") {
+                this.anims.play(('golem_andar'), true);
+            } else if (this.tipo == "caranguejo"){
+                this.anims.play(('caranguejo_andar'), true);
+            }
+        } else {
+
+            if(this.tipo == "goglem") {
+                this.anims.play(('goglem_parado'), true);
+            } else if (this.tipo == "caranguejo"){
+                this.anims.play(('caranguejo_andar'), false);
+            }
         }
 
-        if(this.x < jogador.x) {
+
+        if(this.x <= jogador.x) {
             inimigoVelocidade.x = 1;
+            this.flipX = false;
         } else {
             inimigoVelocidade.x = -1;
+            this.flipX = true;
         }
 
         if(this.y < jogador.y) {
@@ -92,6 +98,9 @@ export default class Inimigo extends Phaser.Physics.Matter.Sprite {
         } else {
             inimigoVelocidade.y = -1;
         }
+
+        
+
 
         inimigoVelocidade.normalize();
         this.setVelocity(inimigoVelocidade.x, inimigoVelocidade.y);

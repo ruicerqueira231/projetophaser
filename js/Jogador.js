@@ -22,7 +22,8 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
         var jogadorColidir = Bodies.rectangle(this.x, this.y, 8,8, {isSensor:false, label:"jogadorColidir"});
         //associar sensor e culisão a um so corpo e definir propriedades
         const corpo = Body.create({ parts:[jogadorColidir], frictionAir: 0.35,});
-        
+        //camera para o jogador
+        this.camera = this.scene.cameras.main;
         
         this.setExistingBody(corpo);//criar corpo
         this.setFixedRotation(); //não rodar o boneco ao colidir com outro
@@ -60,7 +61,6 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
     }
 
     update() {
-        
 
         const velocidadeDoJogador = 1.5;
     
@@ -78,7 +78,17 @@ export default class Jogador extends Phaser.Physics.Matter.Sprite {
             jogadorVelocidade.y = 1;
         }
         jogadorVelocidade.normalize(); //para não aumentar a velocidade quando motivo na diogonal
-        
+
+
+        if(this.inputKeys.camera.isDown) {
+            this.camera.zoom = 2; //zoom aplicado
+            this.camera.startFollow(this); //seguir o jogador
+            this.camera.setLerp(0.1,0.1); //delay na camera
+            this.camera.setBounds(0,0,this.scene.game.config.width, this.scene.game.config.height);
+        } else {
+            this.camera.zoom = 1;
+        }
+
         //cheat para aumentar 3x a velocidade do jogador ao apertar "M"
         if(this.inputKeys.velocidade.isDown) {
             this.audioSteps.setRate(3.0);

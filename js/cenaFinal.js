@@ -27,7 +27,7 @@ export default class CenaFinal extends Phaser.Scene {
         Jogador.preload(this);
 
         //precarregar inimigo
-        Inimigo.preload(this, "inimigo");
+        Inimigo.preload(this);
 
         //precarregar imagem do mapa e o seu estilo titledjson
         this.load.image("partes2", "assets/images/RPG Nature Tileset_2.png");
@@ -49,7 +49,7 @@ export default class CenaFinal extends Phaser.Scene {
         const camada4 = map.createStaticLayer("Camada de Blocos 4", tileset2,0,0);
         //new Jogador({scene:this, x:100, y:100, texture:'menina', frame: 'townsfolk_f_walk_1'});
         this.player = new Jogador({scene:this, x:100, y:100, texture:'menina', frame: 'townsfolk_f_walk_1', vida: this.vidaJogador});
-        this.inimigo = new Inimigo({scene:this, x:300, y:300, texture:'inimigo', frame: 'crabmoving1', scale: 3, vida: 1, tipo: "inimigogoglem"});
+        this.inimigo = new Inimigo({scene:this, x:300, y:300, texture:'inimigos', frame: 'crabmoving1', scale: 3, vida: 100, tipo: "caranguejo"});
         const camada3 = map.createStaticLayer("Camada de Blocos 3", tileset2,0,0);
 
         //colisões dos tiletmapslayers
@@ -75,6 +75,7 @@ export default class CenaFinal extends Phaser.Scene {
             esquerda: Phaser.Input.Keyboard.KeyCodes.A,
             direita: Phaser.Input.Keyboard.KeyCodes.D,
             velocidade: Phaser.Input.Keyboard.KeyCodes.M,
+            camera: Phaser.Input.Keyboard.KeyCodes.C,
         })
 
         //cheats

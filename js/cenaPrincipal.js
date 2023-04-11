@@ -22,7 +22,7 @@ export default class CenaPrincipal extends Phaser.Scene {
         Jogador.preload(this);
 
         //precarregar inimigo
-        Inimigo.preload(this, "inimigogoglem");
+        Inimigo.preload(this);
 
         //precarregar imagem do mapa e o seu estilo titledjson
         this.load.image("partes", "assets/images/RPG Nature Tileset.png");
@@ -47,7 +47,7 @@ export default class CenaPrincipal extends Phaser.Scene {
         map.createStaticLayer("Camada de Blocos 3", tileset,0,0);
         const camada5 = map.createStaticLayer("Camada de Blocos 5", tileset,0,0);
         this.player = new Jogador({scene:this, x:100, y:100, texture:'menina', frame: 'townsfolk_f_walk_1'});
-        this.inimigo = new Inimigo({scene:this, x:300, y:300, texture:'inimigogoglem', frame: 'golem_idle_1', scale: 2, vida: 1, tipo: "inimigogoglem"});
+        this.inimigo = new Inimigo({scene:this, x:300, y:300, texture:'inimigos', frame: 'golem_idle_1', scale: 2, vida: 100, tipo: "goglem"});
           
         const camada4 = map.createStaticLayer("Camada de Blocos 4", tileset,0,0);
 
@@ -58,16 +58,7 @@ export default class CenaPrincipal extends Phaser.Scene {
         //aplicar as colisoes definidas
         this.matter.world.convertTilemapLayer(camada1); 
         this.matter.world.convertTilemapLayer(camada4);
-        this.matter.world.convertTilemapLayer(camada5);
-
-
-        //camera
-        let camera = this.cameras.main;
-        camera.zoom = 2; //zoom aplicado
-        camera.startFollow(this.player); //seguir o jogador
-        camera.setLerp(0.1,0.1); //delay na camera
-        camera.setBounds(0,0,this.game.config.width, this.game.config.height);
-        
+        this.matter.world.convertTilemapLayer(camada5);   
         
         //teclas utilizadas pelo jogador
         this.player.inputKeys = this.input.keyboard.addKeys({
@@ -76,6 +67,7 @@ export default class CenaPrincipal extends Phaser.Scene {
             esquerda: Phaser.Input.Keyboard.KeyCodes.A,
             direita: Phaser.Input.Keyboard.KeyCodes.D,
             velocidade: Phaser.Input.Keyboard.KeyCodes.M,
+            camera: Phaser.Input.Keyboard.KeyCodes.SPACE,
         })
 
         //cheats
@@ -134,10 +126,6 @@ export default class CenaPrincipal extends Phaser.Scene {
     }
 
     update() {
-      
-
-        this.cameras.main.scrollX = this.player.x - this.cameras.main.width / 2;
-        this.cameras.main.scrollY = this.player.y - this.cameras.main.height / 2;
 
         this.player.update(); //updates do jogador
         this.inimigo.update(this.player);
