@@ -47,7 +47,7 @@ export default class CenaPrincipal extends Phaser.Scene {
         map.createStaticLayer("Camada de Blocos 3", tileset,0,0);
         const camada5 = map.createStaticLayer("Camada de Blocos 5", tileset,0,0);
         this.player = new Jogador({scene:this, x:100, y:100, texture:'menina', frame: 'townsfolk_f_walk_1'});
-        this.inimigo = new Inimigo({scene:this, x:300, y:300, texture:'inimigos', frame: 'wolf_idle_2', scale: 2, vida: 1, tipo: "lobo"});
+        this.inimigo = new Inimigo({scene:this, x:300, y:300, texture:'inimigos', frame: 'wolf_idle_2', scale: 2, vida: 200, tipo: "lobo"});
           
         const camada4 = map.createStaticLayer("Camada de Blocos 4", tileset,0,0);
 
